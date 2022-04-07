@@ -22,7 +22,7 @@ class RegisterController extends AbstractController
     }
 
     /**
-     * @Route("/register", name="register")
+     * @Route("/register", name="app_register")
      */
     public function index(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
