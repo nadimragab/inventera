@@ -3,5 +3,7 @@
 {% block title %} Inscription {% endblock %}
 
 {% block content %}
+        <h1> Création d'un nouvel utilisateur  </h1>
         {{ form(form) }}
+        <center><a href="{{ path('app_account')}}"> Retourner à l'espace utilisateur </a></center> <br/>
 {% endblock %}
