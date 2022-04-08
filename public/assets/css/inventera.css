@@ -1,0 +1,11 @@
+.navbar_item_custom a {
+    color: #fff;
+}
+.footer-custom {
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #dfe6e9;
+    padding-top: 25px;
+}
