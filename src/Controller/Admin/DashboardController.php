@@ -2,7 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Bien;
 use App\Entity\User;
+use App\Entity\Service;
 use App\Entity\Structure;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,5 +33,7 @@ class DashboardController extends AbstractDashboardController
         #yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Les utilisateurs', 'fas fa-user', User::class);
         yield MenuItem::linkToCrud('Les structures', 'fas fa-hotel', Structure::class);
+        yield MenuItem::linkToCrud('Les services', 'fas fa-bell', Service::class);
+        yield MenuItem::linkToCrud('Les biens', 'fas fa-store', Bien::class);
     }
 }

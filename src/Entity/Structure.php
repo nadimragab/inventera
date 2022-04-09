@@ -44,11 +44,21 @@ class Structure
      */
     private $referenceStructure;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->services = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getNomStructure();
+    }
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -128,6 +138,18 @@ class Structure
     public function setReferenceStructure(string $referenceStructure): self
     {
         $this->referenceStructure = $referenceStructure;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

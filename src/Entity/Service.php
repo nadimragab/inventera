@@ -60,6 +60,11 @@ class Service
         $this->biens = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getNomService();
+    }
+    
     public function getId(): ?int
     {
         return $this->id;
