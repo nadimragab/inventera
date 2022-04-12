@@ -3,8 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Bien;
+use App\Entity\Service;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -33,21 +35,33 @@ class BienType extends AbstractType
                 'attr'=>['placeholder'=>"Insérez la référence pour le code QR"]])
             ->add('dateAcquisition',DateType::class, [
                 'label'=>'Date acquisition',
-                'constraints' => new Length(['min' => 2,'max' => 30]),
+                'widget' => 'choice',
+                'input'  => 'datetime_immutable',
                 'attr'=>['placeholder'=>"Insérez la date d'acquisition de votre bien"]])
             ->add('nombreUniteLot',IntegerType::class, [
                 'label'=>'Nombre unités',
                 'constraints' => new Length(['min' => 2,'max' => 30]),
                 'attr'=>['placeholder'=>"Insérez le nombre d'unités du bien"]])
-            ->add('attachment', FileType::class, [
-                'label'=>'Image du bien',
-                'constraints' => new Length(['min' => 2,'max' => 30]),
-                'attr'=>['placeholder'=>"Insérez une image de votre bien"]])
-            ->add('service',TextType::class, [
-                'label'=>'Service de rattachement',
-                'constraints' => new Length(['min' => 2,'max' => 30]),
-                'attr'=>['placeholder'=>"Insérez le service de rattachement de votre bien"]])
+            
+            
+            ->add('image', FileType::class, [
+                'mapped' => false,
+                'attr'=>['placeholder'=>"Insérez une image du bien"]
 
+            ])
+
+            ->add('Service', EntityType::class, [
+                // looks for choices from this entity
+                'class' => Service::class,
+            
+                // uses the User.username property as the visible option string
+                'choice_label' => 'nomService',
+            
+                // used to render a select box, check boxes or radios
+                // 'multiple' => true,
+                // 'expanded' => true,
+                'attr'=>['placeholder'=>"Insérez le service de rattachement"]
+            ])
             ->add('submit', SubmitType::class, [
                 'label'=>"Créer un bien"
             ])

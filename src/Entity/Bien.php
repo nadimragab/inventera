@@ -61,12 +61,6 @@ class Bien
      */
     private $image;
 
-    /**
-     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image")
-     * @var File
-     */
-    private $imageFile;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -107,6 +101,8 @@ class Bien
 
         return $this;
     }
+
+
 
     public function getDateAcquisition(): ?\DateTimeInterface
     {
@@ -156,32 +152,16 @@ class Bien
         return $this;
     }
 
-    public function setImageFile($image = null)
-    {
-        $this->imageFile = $image;
-
-        // VERY IMPORTANT:
-        // It is required that at least one field changes if you are using Doctrine,
-        // otherwise the event listeners won't be called and the file is lost
-        if ($image) {
-            // if 'updatedAt' is not defined in your entity, use another property
-            $this->updatedAt = new \DateTime('now');
-        }
-    }
-
-    public function getImageFile()
-    {
-        return $this->imageFile;
-    }
-
-    public function setImage($image)
-    {
-        $this->image = $image;
-    }
-
-    public function getImage()
+    public function getImage(): ?string
     {
         return $this->image;
     }
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
 
 }
