@@ -34,10 +34,6 @@ class Service
      */
     private $slug;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $image;
 
     /**
      * @ORM\ManyToOne(targetEntity=Structure::class, inversedBy="services")
@@ -106,17 +102,7 @@ class Service
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
 
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
 
     public function getStructure(): ?Structure
     {

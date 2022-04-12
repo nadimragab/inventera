@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class StructureController extends AbstractController
@@ -24,7 +25,7 @@ class StructureController extends AbstractController
     /**
      * @Route("/structure", name="app_structure")
      */
-    public function index(Request $request): Response
+    public function index(Request $request, SluggerInterface $slugger): Response
     {
         $notification = null;
         $form = $this->createForm(StructureType::class);
@@ -32,6 +33,8 @@ class StructureController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $structure = $form->getData();
+            $nomStructure = $form->get('nomStructure')->getData();
+            $structure->setSlug($slugger->slug($nomStructure));
             $this->entityManager->persist($structure);
             $this->entityManager->flush();
             $notification = 'Structure ajoutée correctement';

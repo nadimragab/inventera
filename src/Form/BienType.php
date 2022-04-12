@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -38,12 +39,17 @@ class BienType extends AbstractType
                 'label'=>'Nombre unités',
                 'constraints' => new Length(['min' => 2,'max' => 30]),
                 'attr'=>['placeholder'=>"Insérez le nombre d'unités du bien"]])
+            ->add('attachment', FileType::class, [
+                'label'=>'Image du bien',
+                'constraints' => new Length(['min' => 2,'max' => 30]),
+                'attr'=>['placeholder'=>"Insérez une image de votre bien"]])
             ->add('service',TextType::class, [
                 'label'=>'Service de rattachement',
                 'constraints' => new Length(['min' => 2,'max' => 30]),
                 'attr'=>['placeholder'=>"Insérez le service de rattachement de votre bien"]])
+
             ->add('submit', SubmitType::class, [
-                'label'=>"Créer une structure"
+                'label'=>"Créer un bien"
             ])
             ->add('reset', ResetType::class, [
                 'label'=>"Annuler"

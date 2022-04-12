@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Bien;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
@@ -22,12 +23,8 @@ class BienCrudController extends AbstractCrudController
         return [
             TextField::new('nom'),
             SlugField::new('slug')->setTargetFieldName('nom'),
-            ImageField::new('image')
-                ->setBasePath('uploads/')
-                ->setFormTypeOptions(['mapped'=>false, 'required'=>false])
-                ->setUploadDir('public/uploads')
-                ->setUploadedFileNamePattern('[randomhas].[extension]')
-                ->setRequired(false),
+            ImageField::new('imageFile')->SetFormType(VichImageType::class)->setBasePath('/uploads/biens'),
+
             TextField::new('referenceBien'),
             TextareaField::new('description'),
             AssociationField::new('service'),
