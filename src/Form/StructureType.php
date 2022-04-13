@@ -26,7 +26,7 @@ class StructureType extends AbstractType
                 'attr'=>['placeholder'=>"Insérez l'adresse de votre nouvelle structure"]])
             ->add('description',TextType::class, [
                 'label'=>'Description',
-                'constraints' => new Length(['min' => 2,'max' => 30]),
+                'constraints' => new Length(['min' => 2,'max' => 256]),
                 'attr'=>['placeholder'=>"Proposez une description de votre nouvelle structure"]])
             ->add('referenceStructure',TextType::class, [
                 'label'=>'Référence',

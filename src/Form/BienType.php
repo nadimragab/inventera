@@ -23,15 +23,15 @@ class BienType extends AbstractType
         $builder
             ->add('nom',TextType::class, [
                 'label'=>'Nom du bien',
-                'constraints' => new Length(['min' => 2,'max' => 30]),
+                'constraints' => new Length(['min' => 3,'max' => 30]),
                 'attr'=>['placeholder'=>"Insérez le nom de votre nouveau bien"]])
             ->add('description',TextType::class, [
                 'label'=>'Description',
-                'constraints' => new Length(['min' => 2,'max' => 256]),
+                'constraints' => new Length(['min' => 8,'max' => 256]),
                 'attr'=>['placeholder'=>"Insérez la description de votre bien"]])
             ->add('referenceBien',TextType::class, [
                 'label'=>'Référence du bien',
-                'constraints' => new Length(['min' => 2,'max' => 30]),
+                'constraints' => new Length(['min' => 3,'max' => 12]),
                 'attr'=>['placeholder'=>"Insérez la référence pour le code QR"]])
             ->add('dateAcquisition',DateType::class, [
                 'label'=>'Date acquisition',
@@ -40,7 +40,7 @@ class BienType extends AbstractType
                 'attr'=>['placeholder'=>"Insérez la date d'acquisition de votre bien"]])
             ->add('nombreUniteLot',IntegerType::class, [
                 'label'=>'Nombre unités',
-                'constraints' => new Length(['min' => 2,'max' => 30]),
+                'constraints' => new Length(['min' => 1,'max' => 4]),
                 'attr'=>['placeholder'=>"Insérez le nombre d'unités du bien"]])
             
             
@@ -53,6 +53,7 @@ class BienType extends AbstractType
             ->add('Service', EntityType::class, [
                 // looks for choices from this entity
                 'class' => Service::class,
+                'attr'=>['placeholder'=>"Insérez service de rattachement"],
             
                 // uses the User.username property as the visible option string
                 'choice_label' => 'nomService',

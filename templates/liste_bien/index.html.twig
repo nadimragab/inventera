@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Liste des biens - inventera {% endblock %}
+
+{% block content %}
+
+<div class="row">
+    {% for bien in biens %}
+		<div class="col-md-1">
+			<a href=" {{path('app_show_bien', {'slug': bien.slug})}}"><img src="{{ asset('/uploads/' ~ bien.image) }}" alt="{{ bien.nom}}" class="img-fluid"></a>
+		</div>
+            <div class="col-md-5" my-auto>
+                <div class="bien-item">
+                    <h5> {{bien.nom}} </h5>
+                    <span> Référence: {{bien.referenceBien}} </span>
+                    <p> Description: {{ bien.description }}</p>
+                    <p> Nombre d'unités: {{ bien.nombreUniteLot }}</p>
+                    <p> Service de rattachement: {{ bien.service}}</p>
+                </div>
+            </div>
+    {% endfor  %}
+</div>
+{% endblock %}
