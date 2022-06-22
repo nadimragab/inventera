@@ -88,10 +88,14 @@
 
     <!-- FOOTER -->
     <p class="float-bottom">
-    <footer class="container">
+    {% if block('footer') is not defined %}
+    {% block footer %}
+    <footer class="container" >
         <p class="float-right"> Inventera 0.1 Alpha </p>
         <p>&copy; ELSE technologies, SS2I. </p>
     </footer>
+    {% endblock %}
+    {% endif %}
     </p>
 </main>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
