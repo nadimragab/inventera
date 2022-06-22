@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ bien.nom }} {% endblock %}
+
+{% block content %}
+
+
+
+
+            <center>
+            {% if qrCode %}
+                <img src="{{qrCode}}", alt="qr-code">
+            {% endif %}
+            </center>
+
+
+{% endblock %}

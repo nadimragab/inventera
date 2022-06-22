@@ -3,9 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Bien;
+use App\Form\BienqrType;
+use Endroid\QrCode\QrCode;
+use App\Service\QrcodeService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ListeBienController extends AbstractController
@@ -37,14 +43,38 @@ class ListeBienController extends AbstractController
     /**
      * @Route("/bien/{slug}", name="app_show_bien")
      */
-    public function show($slug)
+    public function show(Request $request,$slug)
     {
         $bien = $this->entityManager->getRepository(Bien::class)->findOneBySlug($slug);
-        if (!$bien) {
+    if (!$bien) {
             return $this->redirectToRoute('app_liste_bien');
         }
+
         return $this->render('bien/show.html.twig', [
             'bien' => $bien
         ]);
     }
+
+    /**
+     * @Route("/bien/{slug}/qr", name="app_qr_bien")
+     */
+    public function qrcode(Request $request,$slug, QrcodeService $qrcodeService)
+    {
+        $bien = $this->entityManager->getRepository(Bien::class)->findOneBySlug($slug);
+        #_______________________QR code generation code______________________________________________
+        $qrCode=null;
+
+        #____________________________________________________________________________________________
+        if (!$bien) {
+            return $this->redirectToRoute('app_liste_bien');
+        }
+        $qrCode = $qrcodeService->qrcode($bien->getReferenceBien());
+        return $this->render('bien/qrcode.html.twig', [
+            'bien' => $bien,
+            'qrCode'=> $qrCode
+        ]);
+    }
+
+
+
 }
