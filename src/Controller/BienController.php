@@ -55,7 +55,7 @@ class BienController extends AbstractController
         
 
         }
-        return $this->render('Bien/index.html.twig', [
+        return $this->render('bien/index.html.twig', [
             'form' => $form->createView(),
             'notification' => $notification
         ]);

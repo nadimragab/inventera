@@ -4,20 +4,34 @@
 
 {% block content %}
 
-<div class="row">
-    {% for bien in biens %}
-		<div class="col-md-1">
-			<a href=" {{path('app_show_bien', {'slug': bien.slug})}}"><img src="{{ asset('/uploads/' ~ bien.image) }}" alt="{{ bien.nom}}" class="img-fluid"></a>
-		</div>
-            <div class="col-md-5" my-auto>
-                <div class="bien-item">
-                    <h5> {{bien.nom}} </h5>
-                    <span> Référence: {{bien.referenceBien}} </span>
-                    <p> Description: {{ bien.description }}</p>
-                    <p> Nombre d'unités: {{ bien.nombreUniteLot }}</p>
-                    <p> Service de rattachement: {{ bien.service}}</p>
-                </div>
-            </div>
-    {% endfor  %}
-</div>
+<h1><center> Tableau des amortissements </center> </h1>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Référence</th>
+        <th scope="col">Désignation</th>
+        <th scope="col">Description</th>
+        <th scope="col">Nombre d'unités</th>
+        <th scope="col">Service de rattachement</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for bien in biens %}    
+      <tr>
+        <th scope="row">1</th>
+        <td> <a href=" {{path('app_show_bien', {'slug': bien.slug})}}">{{bien.referenceBien}} </a></td>
+        <td>{{bien.nom}}</td>
+        <td> {{ bien.description }} </td>
+        <td> bien.nombreUniteLot </td>
+        <td> {{ bien.service}}</td>
+        <td></td>
+      </tr>
+      {% endfor  %}
+    </tbody>
+  </table>
+
+
+
 {% endblock %}
