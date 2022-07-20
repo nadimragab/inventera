@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Bien;
 use App\Entity\Service;
+use App\Entity\Structure;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -15,12 +16,15 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class BienType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+
             ->add('nom',TextType::class, [
                 'label'=>'Nom du bien',
                 'constraints' => new Length(['min' => 3,'max' => 30]),
@@ -49,6 +53,20 @@ class BienType extends AbstractType
                 'attr'=>['placeholder'=>"Insérez une image du bien"]
 
             ])
+            ->add('Structure', EntityType::class, [
+                // looks for choices from this entity
+                'class' => Structure::class,
+                'attr'=>['placeholder'=>"Insérez structure de rattachement"],
+            
+                // uses the User.username property as the visible option string
+                'choice_label' => 'nomStructure',
+            
+                // used to render a select box, check boxes or radios
+                // 'multiple' => true,
+                // 'expanded' => true,
+                'attr'=>['placeholder'=>"Insérez la structure de rattachement"]
+            ])
+
 
             ->add('Service', EntityType::class, [
                 // looks for choices from this entity
@@ -57,7 +75,7 @@ class BienType extends AbstractType
             
                 // uses the User.username property as the visible option string
                 'choice_label' => 'nomService',
-            
+                //'disabled' => true,
                 // used to render a select box, check boxes or radios
                 // 'multiple' => true,
                 // 'expanded' => true,

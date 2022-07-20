@@ -49,9 +49,15 @@ class Structure
      */
     private $slug;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Bien::class, mappedBy="structure")
+     */
+    private $yes;
+
     public function __construct()
     {
         $this->services = new ArrayCollection();
+        $this->yes = new ArrayCollection();
     }
 
     public function __toString()
@@ -150,6 +156,36 @@ class Structure
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Bien>
+     */
+    public function getYes(): Collection
+    {
+        return $this->yes;
+    }
+
+    public function addYe(Bien $ye): self
+    {
+        if (!$this->yes->contains($ye)) {
+            $this->yes[] = $ye;
+            $ye->setStructure($this);
+        }
+
+        return $this;
+    }
+
+    public function removeYe(Bien $ye): self
+    {
+        if ($this->yes->removeElement($ye)) {
+            // set the owning side to null (unless already changed)
+            if ($ye->getStructure() === $this) {
+                $ye->setStructure(null);
+            }
+        }
 
         return $this;
     }

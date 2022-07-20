@@ -61,6 +61,36 @@ class Bien
      */
     private $image;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $compteActif;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $compteAmortissement;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $compteDotation;
+
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $affectation;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $invNature;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Structure::class, inversedBy="yes")
+     */
+    private $structure;
+
     public function __toString(): string
     {
      return $this->nom;   
@@ -164,6 +194,78 @@ class Bien
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getCompteActif(): ?int
+    {
+        return $this->compteActif;
+    }
+
+    public function setCompteActif(?int $compteActif): self
+    {
+        $this->compteActif = $compteActif;
+
+        return $this;
+    }
+
+    public function getCompteAmortissement(): ?int
+    {
+        return $this->compteAmortissement;
+    }
+
+    public function setCompteAmortissement(?int $compteAmortissement): self
+    {
+        $this->compteAmortissement = $compteAmortissement;
+
+        return $this;
+    }
+
+    public function getCompteDotation(): ?int
+    {
+        return $this->compteDotation;
+    }
+
+    public function setCompteDotation(?int $compteDotation): self
+    {
+        $this->compteDotation = $compteDotation;
+
+        return $this;
+    }
+
+    public function getAffectation(): ?int
+    {
+        return $this->affectation;
+    }
+
+    public function setAffectation(?int $affectation): self
+    {
+        $this->affectation = $affectation;
+
+        return $this;
+    }
+
+    public function getInvNature(): ?string
+    {
+        return $this->invNature;
+    }
+
+    public function setInvNature(?string $invNature): self
+    {
+        $this->invNature = $invNature;
+
+        return $this;
+    }
+
+    public function getStructure(): ?Structure
+    {
+        return $this->structure;
+    }
+
+    public function setStructure(?Structure $structure): self
+    {
+        $this->structure = $structure;
 
         return $this;
     }
