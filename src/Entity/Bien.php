@@ -91,6 +91,31 @@ class Bien
      */
     private $structure;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $codeInvNat;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $libelleInvNat;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $valeurAcquisition;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $valeurAmortissement;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $dureeAmortissement;
+
     public function __toString(): string
     {
      return $this->nom;   
@@ -266,6 +291,66 @@ class Bien
     public function setStructure(?Structure $structure): self
     {
         $this->structure = $structure;
+
+        return $this;
+    }
+
+    public function getCodeInvNat(): ?string
+    {
+        return $this->codeInvNat;
+    }
+
+    public function setCodeInvNat(?string $codeInvNat): self
+    {
+        $this->codeInvNat = $codeInvNat;
+
+        return $this;
+    }
+
+    public function getLibelleInvNat(): ?string
+    {
+        return $this->libelleInvNat;
+    }
+
+    public function setLibelleInvNat(?string $libelleInvNat): self
+    {
+        $this->libelleInvNat = $libelleInvNat;
+
+        return $this;
+    }
+
+    public function getValeurAcquisition(): ?int
+    {
+        return $this->valeurAcquisition;
+    }
+
+    public function setValeurAcquisition(?int $valeurAcquisition): self
+    {
+        $this->valeurAcquisition = $valeurAcquisition;
+
+        return $this;
+    }
+
+    public function getValeurAmortissement(): ?int
+    {
+        return $this->valeurAmortissement;
+    }
+
+    public function setValeurAmortissement(): self
+    {
+        $this->valeurAmortissement = ($this->valeurAcquisition)/ ($this->dureeAmortissement*12);
+
+        return $this;
+    }
+
+    public function getDureeAmortissement(): ?int
+    {
+        return $this->dureeAmortissement;
+    }
+
+    public function setDureeAmortissement(?int $dureeAmortissement): self
+    {
+        $this->dureeAmortissement = $dureeAmortissement;
 
         return $this;
     }
