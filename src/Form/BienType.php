@@ -38,11 +38,16 @@ class BienType extends AbstractType
                 'label'=>'Référence du bien',
                 'constraints' => new Length(['min' => 3,'max' => 12]),
                 'attr'=>['placeholder'=>"Insérez la référence pour le code QR"]])
+            
+            
             ->add('dateAcquisition',DateType::class, [
                 'label'=>'Date acquisition',
+                'data' => new \DateTime(),
                 'widget' => 'choice',
-                'input'  => 'datetime_immutable',
+                'input'  => 'datetime',
                 'attr'=>['placeholder'=>"Insérez la date d'acquisition de votre bien"]])
+            
+            
             ->add('nombreUniteLot',IntegerType::class, [
                 'label'=>'Nombre unités',
                 'constraints' => new Length(['min' => 1,'max' => 4]),

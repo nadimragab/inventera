@@ -36,6 +36,7 @@ class BienController extends AbstractController
             $nomBien = $form->get('nom')->getData();
             $bien->setSlug($slugger->slug($nomBien));
             $bien->setValeurAmortissement();
+            $bien->setEtatAmortissement();
             #new code for image upload__________________________________________________
             $uploadedFile = $form['image']->getData();
             $destination = $this->getParameter('kernel.project_dir').'/public/uploads';

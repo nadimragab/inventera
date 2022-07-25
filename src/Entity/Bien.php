@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BienRepository;
+use DateTime;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -115,6 +116,11 @@ class Bien
      * @ORM\Column(type="integer", nullable=true)
      */
     private $dureeAmortissement;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $etatAmortissement;
 
     public function __toString(): string
     {
@@ -338,7 +344,7 @@ class Bien
 
     public function setValeurAmortissement(): self
     {
-        $this->valeurAmortissement = ($this->valeurAcquisition)/ ($this->dureeAmortissement*12);
+        $this->valeurAmortissement = ($this->valeurAcquisition) / ($this->dureeAmortissement);
 
         return $this;
     }
@@ -351,6 +357,20 @@ class Bien
     public function setDureeAmortissement(?int $dureeAmortissement): self
     {
         $this->dureeAmortissement = $dureeAmortissement;
+
+        return $this;
+    }
+
+    public function getEtatAmortissement(): ?float
+    {
+        return $this->etatAmortissement;
+    }
+
+    public function setEtatAmortissement(): self
+    {
+        $actuel= new DateTime('now');
+        $duree_amortissement= $this->getDateAcquisition()->diff($actuel);
+        $this->etatAmortissement = $this->getValeurAmortissement() * intval($duree_amortissement->y);
 
         return $this;
     }
