@@ -7,6 +7,8 @@ use App\Repository\BienRepository;
 use DateTime;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+
+
 /**
  * @ORM\Entity(repositoryClass=BienRepository::class)
  * @Vich\Uploadable

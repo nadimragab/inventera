@@ -1,8 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Inventera - Login {% endblock %}
+
+
+
+{% block title %} 
+Inventera - Login 
+
+{% endblock %}
+
+
+
 
 {% block content %}
+<link rel="stylesheet" href="assets/css/login.css">
+
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -14,7 +25,7 @@
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal"> Introduisez vos paramètres de connexion </h1>
+    <h1 class="h3 mb-3 font-weight-normal"> Connexion à Inventera </h1>
     <label for="inputEmail">Email</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" placeholder="Intoduisez votre adresse e-mail" required autofocus>
     <label for="inputPassword">Password</label>

@@ -7,6 +7,7 @@ use App\Form\BienqrType;
 use Endroid\QrCode\QrCode;
 use App\Service\QrcodeService;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Id;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,8 +32,17 @@ class ListeBienController extends AbstractController
 
 
         $biens = $this->entityManager->getRepository(Bien::class)->findAll();
+        
+        #___________________test________________________
+        foreach ($biens as $bien)
+        {
+            $bien->setEtatAmortissement();
+            #$bien->setCodeInvNat("000");
+            $this->entityManager->flush();
+        }
 
-
+        #_______________________________________________
+        $biens = $this->entityManager->getRepository(Bien::class)->findAll();
 
         return $this->render('liste_bien/index.html.twig', [
 
