@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BienRepository;
 use DateTime;
@@ -123,6 +125,16 @@ class Bien
      * @ORM\Column(type="float", nullable=true)
      */
     private $etatAmortissement;
+
+    /**
+     * @ORM\OneToMany(targetEntity=UniteBien::class, mappedBy="refBien")
+     */
+    private $uniteBiens;
+
+    public function __construct()
+    {
+        $this->uniteBiens = new ArrayCollection();
+    }
 
     public function __toString(): string
     {
@@ -373,6 +385,36 @@ class Bien
         $actuel= new DateTime('now');
         $duree_amortissement= $this->getDateAcquisition()->diff($actuel);
         $this->etatAmortissement = $this->getValeurAmortissement() * intval($duree_amortissement->y);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UniteBien[]
+     */
+    public function getUniteBiens(): Collection
+    {
+        return $this->uniteBiens;
+    }
+
+    public function addUniteBien(UniteBien $uniteBien): self
+    {
+        if (!$this->uniteBiens->contains($uniteBien)) {
+            $this->uniteBiens[] = $uniteBien;
+            $uniteBien->setRefBien($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUniteBien(UniteBien $uniteBien): self
+    {
+        if ($this->uniteBiens->removeElement($uniteBien)) {
+            // set the owning side to null (unless already changed)
+            if ($uniteBien->getRefBien() === $this) {
+                $uniteBien->setRefBien(null);
+            }
+        }
 
         return $this;
     }

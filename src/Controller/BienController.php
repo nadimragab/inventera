@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Bien;
+use App\Entity\UniteBien;
 use App\Form\BienType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +31,7 @@ class BienController extends AbstractController
         $notification = null;
         $form = $this->createForm(BienType::class);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $bien = $form->getData();
             $nomBien = $form->get('nom')->getData();
@@ -52,10 +53,23 @@ class BienController extends AbstractController
 
             #___________________________________________________________________________
             $this->entityManager->persist($bien);
-            $this->entityManager->flush();
-            $notification = 'Bien ajouté correctement';
-        
+            #$this->entityManager->flush();
 
+           
+           
+            #----------------Adding instances in Unite table------------------------#
+            $unite = new UniteBien();
+            for ($i =0 ; $i<$form->get('nombreUniteLot')->getData();$i++)
+            {
+                $unite->setRefBien($bien);
+                $unite->setNbrInv(0);
+                $unite->setEtatPhy("Nouveau");
+                $this->entityManager->persist($unite);
+                #$this->entityManager->flush();
+            }
+            $notification = 'Bien ajouté correctement';
+            #-----------------------------------------------------------------------#
+            $this->entityManager->flush();
         }
         return $this->render('bien/index.html.twig', [
             'form' => $form->createView(),
