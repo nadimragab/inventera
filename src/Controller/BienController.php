@@ -58,14 +58,19 @@ class BienController extends AbstractController
            
            
             #----------------Adding instances in Unite table------------------------#
-            $unite = new UniteBien();
-            for ($i =0 ; $i<$form->get('nombreUniteLot')->getData();$i++)
+
+            $nbr = (integer)$form->get('nombreUniteLot')->getData();
+            $batchSize = 1;
+            for ($i =0 ; $i<$nbr;$i++)
             {
+                $unite = new UniteBien();
                 $unite->setRefBien($bien);
                 $unite->setNbrInv(0);
                 $unite->setEtatPhy("Nouveau");
+                $unite->setNumUnite($i);
                 $this->entityManager->persist($unite);
                 #$this->entityManager->flush();
+
             }
             $notification = 'Bien ajouté correctement';
             #-----------------------------------------------------------------------#
