@@ -6,6 +6,8 @@ use App\Repository\StructureRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Ignore;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=StructureRepository::class)
@@ -21,6 +23,7 @@ class Structure
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"api"})
      */
     private $nomStructure;
 
@@ -31,6 +34,7 @@ class Structure
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"api"})
      */
     private $description;
 

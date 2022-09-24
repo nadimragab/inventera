@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Inventera {% endblock %}
+
+{% block content%}
+<h3><center> Inventaire des biens du service '{{ service}}'' de la structure '{{ structure }}' </center> </h3>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Référence</th>
+        <th scope="col">Référence Unite</th>
+        <th scope="col">nombre inventaires</th>
+        <th scope="col">Etat physique</th>
+
+      </tr>
+    </thead>
+    <tbody>
+    {% for bien in array %}    
+      <tr>
+        <td>{{bien.refBien}}</td>
+        <td>{{bien.numUnite}}</td>
+        <td>{{bien.nbrInv}}</td>
+        <td> {{bien.etatPhy}} </td>
+
+        <td></td>
+      </tr>
+      {% endfor  %}
+    </tbody>
+  </table>
+{% endblock %}
