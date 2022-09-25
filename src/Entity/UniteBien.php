@@ -4,7 +4,8 @@ namespace App\Entity;
 
 use App\Repository\UniteBienRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Serializer\Annotation\Ignore;
+use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass=UniteBienRepository::class)
  */
@@ -19,6 +20,7 @@ class UniteBien
 
     /**
      * @ORM\ManyToOne(targetEntity=Bien::class, inversedBy="uniteBiens")
+     * @Groups({"api"})
      */
     private $refBien;
 
@@ -34,6 +36,7 @@ class UniteBien
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"api"})
      */
     private $numUnite;
 

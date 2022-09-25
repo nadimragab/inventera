@@ -26,13 +26,11 @@ class Bien
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"api"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="text")
-     * @Groups({"api"})
      */
     private $description;
 
@@ -44,13 +42,11 @@ class Bien
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"api"})
      */
     private $dateAcquisition;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"api"})
      */
     private $nombreUniteLot;
 
@@ -73,31 +69,26 @@ class Bien
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"api"})
      */
     private $compteActif;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"api"})
      */
     private $compteAmortissement;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"api"})
      */
     private $compteDotation;
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
-     * @Groups({"api"})
      */
     private $affectation;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"api"})
      */
     private $invNature;
 
@@ -108,37 +99,31 @@ class Bien
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"api"})
      */
     private $codeInvNat;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"api"})
      */
     private $libelleInvNat;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"api"})
      */
     private $valeurAcquisition;
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Groups({"api"})
      */
     private $valeurAmortissement;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"api"})
      */
     private $dureeAmortissement;
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Groups({"api"})
      */
     private $etatAmortissement;
 
