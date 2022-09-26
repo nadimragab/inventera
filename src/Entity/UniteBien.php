@@ -36,9 +36,14 @@ class UniteBien
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"api"})
      */
     private $numUnite;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"api"})
+     */
+    private $refUnite;
 
     public function getId(): ?int
     {
@@ -89,6 +94,18 @@ class UniteBien
     public function setNumUnite(?int $numUnite): self
     {
         $this->numUnite = $numUnite;
+
+        return $this;
+    }
+
+    public function getRefUnite(): ?string
+    {
+        return $this->refUnite;
+    }
+
+    public function setRefUnite(?string $refUnite): self
+    {
+        $this->refUnite = $refUnite;
 
         return $this;
     }

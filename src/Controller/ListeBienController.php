@@ -72,16 +72,23 @@ class ListeBienController extends AbstractController
     {
         $bien = $this->entityManager->getRepository(Bien::class)->findOneBySlug($slug);
         #_______________________QR code generation code______________________________________________
+        
         $qrCode=null;
-
+        $qrArray= $bien->getUniteBiens();
+        $qrs=array();
         #____________________________________________________________________________________________
         if (!$bien) {
             return $this->redirectToRoute('app_liste_bien');
         }
+        for($i=0;$i<$qrArray->count();$i++)
+        {
+            $qrCode = $qrcodeService->qrcode($qrArray[$i]->getRefUnite());
+            array_push($qrs,$qrCode);
+        }
         $qrCode = $qrcodeService->qrcode($bien->getReferenceBien());
         return $this->render('bien/qrcode.html.twig', [
             'bien' => $bien,
-            'qrCode'=> $qrCode
+            'qrCode'=> $qrs
         ]);
     }
 

@@ -61,13 +61,17 @@ class BienController extends AbstractController
 
             $nbr = (integer)$form->get('nombreUniteLot')->getData();
             $batchSize = 1;
+            $ref=(string)$form->get('referenceBien')->getData();
             for ($i =0 ; $i<$nbr;$i++)
             {
+                $refUnite= $ref ."-".(string) $i;
+                #dd($refUnite);
                 $unite = new UniteBien();
                 $unite->setRefBien($bien);
                 $unite->setNbrInv(0);
                 $unite->setEtatPhy("Nouveau");
                 $unite->setNumUnite($i);
+                $unite->setRefUnite($refUnite);
                 $this->entityManager->persist($unite);
                 #$this->entityManager->flush();
 
