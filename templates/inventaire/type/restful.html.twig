@@ -1,32 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Inventera {% endblock %}
+{% block title %}
+	Inventera
+{% endblock %}
 
 {% block content%}
-<h3><center> Inventaire des biens du service '{{ service}}'' de la structure '{{ structure }}' </center> </h3>
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Référence</th>
-        <th scope="col">Référence Unite</th>
-        <th scope="col">nombre inventaires</th>
-        <th scope="col">Etat physique</th>
-        <th scope="col">Verification</th>
+	<!--{{ form(form)  }}-->
+	<!--<center><input type="text" name="qr" id="qr" oninput="getQR()" required
+		       minlength="11" maxlength="13"></center>       alert(qr);
+		--><center>
+	<input type="text" onfocus="this.value=''" name="qr" id="qr" oninput="getQr()"> </center>
+	<script>
+		qrs = [];
+function getQr() {
+var qr = $('#qr').val();
+qrs.push(qr)
+/*setCb(qr);*/
+document.getElementById("qr").autofocus;
+alert(qrs);
+}
+	</script>
+	<!--<h2> <center> {{ ip }}<center> </h2>-->
+	<h3>
+		<center>
+			Inventaire des biens du service '{{ service}}'' de la structure '{{ structure }}', X sur
+			{{ length }}
+		</center>
+	</h3>
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">Designation</th>
+				<th scope="col">Référence Unite</th>
+				<th scope="col">nombre inventaires</th>
+				<th scope="col">Etat physique</th>
+				<!--<th scope="col">Verification</th>-->
 
-      </tr>
-    </thead>
-    <tbody>
-    {% for bien in array %}    
-      <tr>
-        <td>{{bien.refBien}}</td>
-        <td>{{bien.numUnite}}</td>
-        <td>{{bien.nbrInv}}</td>
-        <td> {{bien.etatPhy}} </td>
-        <td><input type="checkbox" value="" /></td>
+			</tr>
+		</thead>
+		<tbody>
+			{% for bien in array %}
+				<tr>
+					<td>{{bien.refBien}}</td>
+					<td>
+						{{bien.refUnite}}
+					</td>
+					<td>{{bien.nbrInv}}</td>
+					<td>
+						{{bien.etatPhy}}
+					</td>
+					<!--<td><input type="checkbox" name="cb" id="cb" value="" /></td>-->
+					<script>/*function setCb(qrCode){
+            var ref = '{{bien.refUnite}}';
+            alert(ref);
+            if(qrCode==ref) { 
+              document.getElementById("cb").checked = true;
+              alert(qrCode);}
 
-        <td></td>
-      </tr>
-      {% endfor  %}
-    </tbody>
-  </table>
-{% endblock %}
+            }
+          */</script>
+				<td></td>
+			</tr>
+		{% endfor  %}
+	</tbody>
+</table>{% endblock %}
