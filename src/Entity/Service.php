@@ -51,9 +51,15 @@ class Service
      */
     private $biens;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UniteBien::class, mappedBy="serviceAtt")
+     */
+    private $uniteBiens;
+
     public function __construct()
     {
         $this->biens = new ArrayCollection();
+        $this->uniteBiens = new ArrayCollection();
     }
 
     public function __toString()
@@ -152,6 +158,36 @@ class Service
             // set the owning side to null (unless already changed)
             if ($bien->getService() === $this) {
                 $bien->setService(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UniteBien[]
+     */
+    public function getUniteBiens(): Collection
+    {
+        return $this->uniteBiens;
+    }
+
+    public function addUniteBien(UniteBien $uniteBien): self
+    {
+        if (!$this->uniteBiens->contains($uniteBien)) {
+            $this->uniteBiens[] = $uniteBien;
+            $uniteBien->setServiceAtt($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUniteBien(UniteBien $uniteBien): self
+    {
+        if ($this->uniteBiens->removeElement($uniteBien)) {
+            // set the owning side to null (unless already changed)
+            if ($uniteBien->getServiceAtt() === $this) {
+                $uniteBien->setServiceAtt(null);
             }
         }
 

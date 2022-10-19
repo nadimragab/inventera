@@ -45,6 +45,16 @@ class UniteBien
      */
     private $refUnite;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Structure::class, inversedBy="serviceAtt")
+     */
+    private $structureAtt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Service::class, inversedBy="uniteBiens")
+     */
+    private $serviceAtt;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -106,6 +116,30 @@ class UniteBien
     public function setRefUnite(?string $refUnite): self
     {
         $this->refUnite = $refUnite;
+
+        return $this;
+    }
+
+    public function getStructureAtt(): ?Structure
+    {
+        return $this->structureAtt;
+    }
+
+    public function setStructureAtt(?Structure $structureAtt): self
+    {
+        $this->structureAtt = $structureAtt;
+
+        return $this;
+    }
+
+    public function getServiceAtt(): ?Service
+    {
+        return $this->serviceAtt;
+    }
+
+    public function setServiceAtt(?Service $serviceAtt): self
+    {
+        $this->serviceAtt = $serviceAtt;
 
         return $this;
     }

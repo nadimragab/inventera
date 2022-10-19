@@ -5,13 +5,14 @@
 {% endblock %}
 
 {% block content%}
-	<!--{{ form(form)  }}-->
-	<!--<center><input type="text" name="qr" id="qr" oninput="getQR()" required
-		       minlength="11" maxlength="13"></center>       alert(qr);
-		--><center>
-	<input type="text" onfocus="this.value=''" name="qr" id="qr" oninput="getQr()"> </center>
-	<script>
-		qrs = [];
+<!--{{ form(form)  }}-->
+<!--<center><input type="text" name="qr" id="qr" oninput="getQR()" required
+																	       minlength="11" maxlength="13"></center>       alert(qr);
+																	-->
+	<center>
+<input type="text" onfocus="this.value=''" name="qr" id="qr" oninput="getQr()"> </center>
+<script>
+	qrs = [];
 function getQr() {
 var qr = $('#qr').val();
 qrs.push(qr)
@@ -19,48 +20,54 @@ qrs.push(qr)
 document.getElementById("qr").autofocus;
 alert(qrs);
 }
-	</script>
-	<!--<h2> <center> {{ ip }}<center> </h2>-->
-	<h3>
-		<center>
-			Inventaire des biens du service '{{ service}}'' de la structure '{{ structure }}', X sur
-			{{ length }}
-		</center>
-	</h3>
-	<table class="table">
-		<thead>
+</script>
+<!--<h2> <center> {{ ip }}<center> </h2>-->
+<p>
+	<center>
+
+		{{ structure }}
+		-
+		{{ service}}
+		-
+		{{ length }}
+		Biens
+
+	</center>
+</p>
+<table class="table">
+	<thead>
+		<tr>
+			<th scope="col">Designation</th>
+			<th scope="col">Référence Unite</th>
+			<th scope="col">nombre inventaires</th>
+			<th scope="col">Etat physique</th>
+
+			<!--<th scope="col">Verification</th>-->
+
+		</tr>
+	</thead>
+	<tbody>
+		{% for bien in array %}
 			<tr>
-				<th scope="col">Designation</th>
-				<th scope="col">Référence Unite</th>
-				<th scope="col">nombre inventaires</th>
-				<th scope="col">Etat physique</th>
-				<!--<th scope="col">Verification</th>-->
-
-			</tr>
-		</thead>
-		<tbody>
-			{% for bien in array %}
-				<tr>
-					<td>{{bien.refBien}}</td>
-					<td>
-						{{bien.refUnite}}
-					</td>
-					<td>{{bien.nbrInv}}</td>
-					<td>
-						{{bien.etatPhy}}
-					</td>
-					<!--<td><input type="checkbox" name="cb" id="cb" value="" /></td>-->
-					<script>/*function setCb(qrCode){
-            var ref = '{{bien.refUnite}}';
-            alert(ref);
-            if(qrCode==ref) { 
-              document.getElementById("cb").checked = true;
-              alert(qrCode);}
-
-            }
-          */</script>
-				<td></td>
-			</tr>
-		{% endfor  %}
+				<td>{{bien.refBien}}</td>
+				<td>
+					{{bien.refUnite}}
+				</td>
+				<td>{{bien.nbrInv}}</td>
+				<td>
+					{{bien.etatPhy}}
+				</td>
+				<td>
+					<!--<input type="checkbox" name="cb" id="cb" value=""/>-->
+					<script>/*function setCb(qrCode) {
+var ref = '{{ bien.refUnite }}';
+alert(ref);
+if (qrCode == ref) {
+document.getElementById("cb").checked = true;
+alert(qrCode);
+}
+*/</script>
+			</td>
+		</tr>
 	</tbody>
-</table>{% endblock %}
+</tbody></td><td></td></tr>{% endfor  %}</tbody></table>{% endblock %}

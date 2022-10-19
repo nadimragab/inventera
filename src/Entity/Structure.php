@@ -58,10 +58,16 @@ class Structure
      */
     private $yes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UniteBien::class, mappedBy="structureAtt")
+     */
+    private $structureAtt;
+
     public function __construct()
     {
         $this->services = new ArrayCollection();
         $this->yes = new ArrayCollection();
+        $this->StructureAtt = new ArrayCollection();
     }
 
     public function __toString()
@@ -188,6 +194,36 @@ class Structure
             // set the owning side to null (unless already changed)
             if ($ye->getStructure() === $this) {
                 $ye->setStructure(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UniteBien[]
+     */
+    public function getuniteBiens(): Collection
+    {
+        return $this->uniteBiens;
+    }
+
+    public function adduniteBiens(UniteBien $uniteBiens): self
+    {
+        if (!$this->uniteBiens->contains($uniteBiens)) {
+            $this->uniteBiens[] = $uniteBiens;
+            $uniteBiens->setStructureAtt($this);
+        }
+
+        return $this;
+    }
+
+    public function removeuniteBiens(UniteBien $uniteBiens): self
+    {
+        if ($this->uniteBiens->removeElement($uniteBiens)) {
+            // set the owning side to null (unless already changed)
+            if ($uniteBiens->getStructureAtt() === $this) {
+                $uniteBiens->setStructureAtt(null);
             }
         }
 
