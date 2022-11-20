@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Inventera
+{% endblock %}
+
+{% block content%}
+	<p>
+		<center>
+
+			{{ structure }}
+			-
+			{{ service}}
+			<br>
+			{{ length }}
+			Biens
+
+		</center>
+	</p>
+
+	<center>
+		<input type="text" onfocus="this.value=''" name="qr" id="qr" oninput="getQr()">
+
+	</center><br>
+	<center>
+		<span class="js-unit"></span>
+	</center>
+	<center>
+		<button type="button" onclick="location.href='#'" class="btn btn-primary btn-lg btn-block">
+			Terminer l'operation</button>
+	</center>
+
+	<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src={{asset ('assets/js/inventaire.js')}}></script>
+
+{% endblock %}
+{% block javascripts %}{% endblock %}

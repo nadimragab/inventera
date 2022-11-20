@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Service inventera{% endblock %}
+
+{% block content %}
+	{% if notification %}
+		<div class="alert alert-info">
+			{{notification}}
+		</div>
+	{% endif %}
+<h1>Créer un nouveau service</h1>
+    {{ form(form) }}
+{% endblock %}
