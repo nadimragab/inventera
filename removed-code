@@ -105,3 +105,27 @@
         return{ unite: null,}
     }
     axios.get(url).then(response => (this.unite=response)).then(response=>console.log(response))*/
+   
+
+
+
+
+    lastly removed from inventaire.js (operational code)
+
+    /*
+    UnitRef= document.querySelector('td.js-unit-ref');
+    UnitStr= document.querySelector('td.js-unit-str');
+    UnitSer= document.querySelector('td.js-unit-ser');
+    Unitnbr= document.querySelector('td.js-unit-nbr');
+    Unitep= document.querySelector('td.js-unit-ep');
+    */
+
+
+
+    resftul html.twig
+    onfocus="this.value=''" required minlength="11" name="qr" id="qr" oninput="getQr()"
+
+    
+    
+    
+    
