@@ -123,7 +123,7 @@
 
 
     resftul html.twig
-    onfocus="this.value=''" required minlength="11" name="qr" id="qr" oninput="getQr()"
+    onfocus="this.value=''" required minlength="11" name="qr" id="qr" oninput="getQr()" oninput="getQr()"
 
     
     

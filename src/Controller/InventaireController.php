@@ -115,7 +115,7 @@ class InventaireController extends AbstractController
     }
 
     /**
-     * @Route("/api/{ref}", name="app_api_uniteBien")
+     * @Route("/api/unites/{ref}", name="app_api_uniteBien")
      * 
     */
     public function api(string $ref): Response 
@@ -136,6 +136,16 @@ class InventaireController extends AbstractController
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
+    }
+
+    /**
+     * @Route("/inventaire/traitement", name="app_traitement")
+     * 
+    */
+    public function traitement(array $elements): Response 
+    {
+        
+
     }
 
 }
