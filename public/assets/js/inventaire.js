@@ -8,7 +8,7 @@ function getQr() {
     var qr = $('#qr').val();
 
     url='http://localhost:8000/api/unites/'+qr;
-    if(qr.length>11 && qrs.indexOf(qr)===-1){
+    if(qr.length>10 && qrs.indexOf(qr)===-1){
     document.getElementById("qr").value='';
     qrs.push(qr);
 
@@ -27,10 +27,10 @@ function getQr() {
             const ph=response.data.etatPhy;
             const ref=response.data.refUnite;
             const str=response.data.structureAtt;
-            const ser=response.data.serviceAtt;
+            const ser=response.data.serviceAtt.nomService;
             UnitRef.textContent=ref;
             UnitStr.textContent=str.nomStructure;
-            UnitSer.textContent=JSON.stringify(ser);
+            UnitSer.textContent=ser;
             Unitnbr.textContent=inv;
             Unitep.textContent=ph;
         }
@@ -41,7 +41,20 @@ button.addEventListener("click", () => opInv(qrs));
 }
 
 function opInv(list) {
-    console.log(list);
+
+    document.getElementById("qr").remove();
+    var unites=list;
+    structure=structure.replace(/ /g,"-");
+    service=service.replace(/ /g,"-");
+    url='http://localhost:8000/inventaire/traitement/'+structure+'/'+service;
+    console.log(url);
+    axios.get(url).then(function(response){
+        console.log(response.data);
+
+    })
+
+
+
 }
 
 

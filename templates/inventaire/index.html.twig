@@ -1,11 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Inventera {% endblock %}
+{% block title %}
+	Inventera
+{% endblock %}
 
 {% block content%}
-        <center><h1> Demarrer une operation d'inventaire  </h1> </center><br/><br/><br/>
-        <center><button   type="button" onclick="location.href='/inventaire/selection'" class="btn btn-primary btn-lg btn-block"> Via Client Android</button></center>
-    </br><br/>
-    <center><button type="button" onclick="location.href='/service'" class="btn btn-primary btn-lg btn-block"> Via scanner de code</button></center>
-    </br><br/>
+	<center>
+		<h1>
+			Demarrer une operation d'inventaire
+		</h1>
+	</center><br/><br/><br>
+		<center>
+			<button type="button" onclick="location.href='/inventaire/selection'" class="btn btn-primary btn-lg btn-block">
+				Classique</button>
+		</center>
+	</br>
+	<br>
+		<center>
+			<button type="button" onclick="location.href='/service'" class="btn btn-primary btn-lg btn-block">
+				Application</button>
+		</center>
+	</br><br/>
 {% endblock %}

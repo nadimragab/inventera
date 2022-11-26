@@ -18,6 +18,7 @@ class Structure
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"api"})
      */
     private $id;
 
@@ -34,7 +35,6 @@ class Structure
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"api"})
      */
     private $description;
 

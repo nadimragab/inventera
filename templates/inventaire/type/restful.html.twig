@@ -5,6 +5,10 @@
 {% endblock %}
 
 {% block content%}
+	<script>
+		var structure = '{{ structure }}'
+var service ='{{ service }}'
+	</script>
 	<p>
 		<center>
 
@@ -17,7 +21,6 @@
 
 		</center>
 	</p>
-
 	<center>
 		<input type="text" id="qr">
 	</center><br>
@@ -25,11 +28,12 @@
 		<span class="js-unit"></span>
 	</center>
 	<center>
-
 		<table class="table" id="inventaire">
 			<thead>
 				<tr>
-					<th scope="col">Référence Unite</th>
+					<th scope="col">Référence Unite
+					</th>
+
 					<th scope="col">Structure</th>
 					<th scope="col">Service</th>
 					<th scope="col">nombre inventaires</th>
@@ -40,12 +44,10 @@
 			<tbody></tbody>
 		</table>
 	</center>
-	<button id="fin" class="btn btn-primary btn-lg btn-block">
-		Terminer l'operation</button>
-
+	<button id="fin" onclick="this.disabled=true" class="btn btn-primary btn-lg btn-block">
+		Terminer l 'operation</button>
 	<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-	<script src={{asset ('assets/js/inventaire.js')}}></script>
-
+	<script src={{ asset ('assets/js/inventaire.js') }}></script>
 {% endblock %}
 {% block javascripts %}{% endblock %}
