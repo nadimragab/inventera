@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+{% block content%}
+	<center>
+		<table class="table" id="traitement">
+			<thead>
+				<tr>
+					<th scope="col">Référence Unite</th>
+					<th scope="col">Statut</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</center>
+	<button id="fin-traitement" onclick="this.disabled=true" class="btn btn-primary btn-lg btn-block">
+		Terminer l 'operation</button>
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="/assets/js/traitement.js"></script>
+{% endblock %}

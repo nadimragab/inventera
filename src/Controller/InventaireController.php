@@ -143,12 +143,18 @@ class InventaireController extends AbstractController
     }
 
     /**
-     * @Route("/inventaire/traitement/", name="app_traitementGeneral")
+     * @Route("/inventaire/traitement", name="app_traitementGeneral")
      * 
     */
     public function traitementGeneral(): Response 
     {
+
+
+        $json_str = file_get_contents('php://input');
+        $json_obj = json_decode($json_str, true);
+        //dd($json_obj);
         return $this->render('inventaire/traitement.html.twig');
+
     }
 
 
