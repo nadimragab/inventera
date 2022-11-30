@@ -30,13 +30,14 @@ use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 
 class InventaireController extends AbstractController
 {
-    #private $entityManager;
-    #private $serializer;
+    /* ______________________________________Constructeur______________________________________________________*/
     public function __construct(EntityManagerInterface $entityManager) #, SerializerInterface $serializer
     {
         $this->entityManager = $entityManager;
-        #$this->serializer = $serializer;
     }
+
+
+    /* ___________________________________Choix approche: classique/ android___________________________________*/
     /**
      * @Route("/inventaire", name="app_inventaire")
      */
@@ -45,6 +46,7 @@ class InventaireController extends AbstractController
         return $this->render('inventaire/index.html.twig');
     }
 
+    /* _________________________________selection: structure ->service__________________________________________*/
     /**
      * @Route("/inventaire/selection", name="app_inventaire_selection")
      */
@@ -67,6 +69,8 @@ class InventaireController extends AbstractController
         ]);
     }
 
+
+        /* _________________________________operation inventaire par service______________________________________*/
     /**
      * @Route("/inventaire/type/restful", name="app_inventaire_restful")
      * 
@@ -79,18 +83,7 @@ class InventaireController extends AbstractController
         $serviceURL= $_GET['service'];
         $service=$this->entityManager->getRepository(Service::class)->findOneBy(['nomService' => $serviceURL]);
         $array=$service->getUniteBiens();
-        /*
-        $biens = $this->entityManager->getRepository(Bien::class)->findAll($service);
-        $array=array();
-        foreach ($biens as &$value) {
-            $unites=$value->getUniteBiens();
-            foreach ($unites as &$unite) {
-                array_push($array,$unite);
-                //array est la liste des biens.
-            }
 
-        }*/
-        #$str = $this->entityManager->getRepository(Structure::class)->findAll();
         $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
         $normalizer = new ObjectNormalizer($classMetadataFactory);
         $defaultContext = [
@@ -114,78 +107,9 @@ class InventaireController extends AbstractController
         'form' => $form->createView(),
         'length'=>count($array)]
         );
-
- 
     }
-
-    /**
-     * @Route("/api/unites/{ref}", name="app_api_uniteBien")
-     * 
-    */
-    public function api(string $ref): Response 
-    {
-
-        $unite = $this->entityManager->getRepository(UniteBien::class)->findOneBy(['refUnite'=>(string)$ref]);
-
-        $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
-        $normalizer = new ObjectNormalizer($classMetadataFactory);
-        $defaultContext = [
-            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
-                return $object->getName();
-            },
-        ];
-        $serializer = new Serializer([$normalizer]);
-        $data = $serializer->normalize($unite, null, ['groups' => 'api']);
-        $response = new Response(json_encode($data));
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
-    }
-
-    /**
-     * @Route("/inventaire/traitement", name="app_traitementGeneral")
-     * 
-    */
-    public function traitementGeneral(): Response 
-    {
+     
 
 
-        $json_str = file_get_contents('php://input');
-        $json_obj = json_decode($json_str, true);
-        //dd($json_obj);
-        return $this->render('inventaire/traitement.html.twig');
-
-    }
-
-
-
-
-    /**
-     * @Route("/inventaire/traitement/{structure}/{service}", name="app_traitement")
-     * 
-    */
-    public function traitement(string $structure, string $service): Response 
-    {
-        $service=str_replace('-',' ', $service);
-
-        $service=$this->entityManager->getRepository(Service::class)->findOneBy(['nomService' => $service]);
-        $array=$service->getUniteBiens();
-        #$str = $this->entityManager->getRepository(Structure::class)->findAll();
-        $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
-        $normalizer = new ObjectNormalizer($classMetadataFactory);
-        $defaultContext = [
-            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
-                return $object->getName();
-            },
-        ];
-        $serializer = new Serializer([$normalizer]);
-        #$data = $serializer->normalize($str, null, ['groups' => 'api']);
-        $data = $serializer->normalize($array, null, ['groups' => 'api']);
-        $response = new Response(json_encode($data));
-        $response->headers->set('Content-Type', 'application/json');
-        #return $response;
-        $ipAd=$_SERVER['HTTP_HOST']; 
-        return $response;
-    }
 
 }

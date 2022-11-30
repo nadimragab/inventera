@@ -125,7 +125,100 @@
     resftul html.twig
     onfocus="this.value=''" required minlength="11" name="qr" id="qr" oninput="getQr()" oninput="getQr()"
 
+
+    OpInv function in inventaire.js
+                /*
+        const options = {
+            method: 'post',
+            url: '/inventaire/traitement',
+            data: {
+              regles: regles,
+              excedants: excedants,
+              manquants: manquants,
+            }
+          };*/
+
+                /*
+            axios.post('http://localhost:8000/inventaire/traitement', {
+            regles: regles,
+            excedants: excedants,
+            manquants: manquants,
+            }).then(()=>document.location.href = "/inventaire/traitement");
+            */
+            //.then((response)=>console.log(response));
+          // send the request
+          //axios(options);
+
+          //document.location.href = "/inventaire/traitement";
+
+
+
+
+/*
+//Manage actions of treatements
+function traitement(regles, excedants, manquants) {
+
+    window.addEventListener('load', () =>{
+    //document.location.href = "/inventaire/traitement";
+    table = document.getElementById("traitement");
+
+    console.log(table);
+    for(let i=0;i<regles.length;i++)
+    {
+        row =table.insertRow(i);
+        UnitRef= row.insertCell();
+        statut= row.insertCell();
+        action= row.insertCell();
+        UnitRef.textContent=excedants[i];
+        statut.textContent="regles";
+        action.textContent="Action";
+    }
+});
+*/
+
+
+
+}
+
+              fetch(url, {
+            method : "POST",          
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body : "test"
+        }).then(()=>);
+
+
+    inventairecontroller function restful
+            /*
+        $biens = $this->entityManager->getRepository(Bien::class)->findAll($service);
+        $array=array();
+        foreach ($biens as &$value) {
+            $unites=$value->getUniteBiens();
+            foreach ($unites as &$unite) {
+                array_push($array,$unite);
+                //array est la liste des biens.
+            }
+
+        }*/
+        #$str = $this->entityManager->getRepository(Structure::class)->findAll();
     
-    
-    
-    
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+                //console.log(document.location);
+        //traitement(regles,excedants, manquants);
+        /*
+
+        
+        
+        axios.post("/inventaire/traitement", 
+        {reg:regles, 
+        exc:excedants, 
+        mnq:manquants})*/
+        //document.location.href = '/inventaire/traitement', true;
+
+        //$(document).ready(traitement(regles,excedants, manquants));
+
+        //document.location.href = "/inventaire/traitement";
