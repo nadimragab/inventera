@@ -56,35 +56,82 @@ function opInv(list) {
         let regles=unites.filter(x => unitesApi.includes(x));
         let excedants = unites.filter(x => !unitesApi.includes(x));
         let manquants= unitesApi.filter(x => !unites.includes(x));
-        console.log(regles);
-        console.log(excedants);
-        console.log(manquants);
+        //console.log(regles);
+        //console.log(excedants);
+        //console.log(manquants);
+        //traitement(regles, excedants, manquants)      
+        //working code for posting data to php controller
         $.ajax({
-            url: "/inventaire/traitement",
+            url: "/inventaire/redirection",
             type: "post",
             data: {regles:regles,
                 excedants:excedants,
                 manquants:manquants,
             }
-        })
+        }).then((response)=>{document.body.innerHTML = response}).then(()=>traitement(regles,excedants, manquants));
     })
 }
 
+function traitement(reg, exc, manq)
+{
 
-        //console.log(document.location);
-        //traitement(regles,excedants, manquants);
-        /*
 
+        console.log(reg);
+        //button.remove();
+        table = document.getElementById("traitement");
+        console.log(table);
+        let long=0
+        for(i=0; i<manq.length;i++)
+        {
+        j=i+1;
+        row =table.insertRow(j);
+        refUnite= row.insertCell();
+        statUnite= row.insertCell();
+        actUnite= row.insertCell();
+        refUnite.textContent=manq[i];
+        statUnite.textContent="Manquant";
+        actUnite.innerHTML="<select name='manquants' id='mnq-select'> <option value='action'>action</option><option value='trouve'>retrouve</option><option value='Deteriore'>Deteriore</option>";
+        long=j
+        }
+        console.log(long);
+        for(i=0; i<exc.length;i++)
+        {
+        j=long+i+1;
+        row =table.insertRow(j);
+        refUnite= row.insertCell();
+        statUnite= row.insertCell();
+        actUnite= row.insertCell();
+        refUnite.textContent=manq[i];
+        statUnite.textContent="excedant";
+        actUnite.innerHTML="<select name='excedants' id='exc-select'> <option value='action'>action</option><option value='rest'>restituer</option><option value='reaf'>reaffecter</option>";
+
+        }
+
+
+        /*table.row[0].cells[1].deleteCell();
+        //console.log(table.rows.length);
+        for(let i=0;i<table.rows.length;i++)
+        {
+            table.deleteRow(1);
+        }*/
+
+
+
+
+
+
+        /*for(let i=0;i<manq.length;i++)
+        {
+            row =table.insertRow(i);
+            UnitRef= row.insertCell();
+            statut= row.insertCell();
+            action= row.insertCell();
+            UnitRef.textContent=excedants[i];
+            statut.textContent="manquant";
+            action.textContent="Action";
+        }*/
         
-        
-        axios.post("/inventaire/traitement", 
-        {reg:regles, 
-        exc:excedants, 
-        mnq:manquants})*/
-        //document.location.href = '/inventaire/traitement', true;
 
-        //$(document).ready(traitement(regles,excedants, manquants));
-
-        //document.location.href = "/inventaire/traitement";
+}
 
 

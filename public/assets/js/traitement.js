@@ -1,4 +1,0 @@
-function traitement(response)
-{
-
-}

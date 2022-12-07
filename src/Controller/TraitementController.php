@@ -40,6 +40,17 @@ class TraitementController extends AbstractController
 
     /* _________________________________traitement post-inventaire par service____________________________________*/
     /**
+     * @Route("/inventaire/redirection", name="app_inventaire_redirection")
+     * 
+     */
+    public function inventaireRedirection(): Response
+    {
+        return $this->render('/inventaire/traitement.html.twig');
+    }
+
+
+    /* _________________________________traitement post-inventaire par service____________________________________*/
+    /**
      * @Route("/inventaire/traitement", name="app_traitement")
      * 
      */

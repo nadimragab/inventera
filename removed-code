@@ -222,3 +222,47 @@ function traitement(regles, excedants, manquants) {
         //$(document).ready(traitement(regles,excedants, manquants));
 
         //document.location.href = "/inventaire/traitement";
+
+
+
+
+        //console.log(document.location);
+        //traitement(regles,excedants, manquants);
+        /*
+
+        
+        
+        axios.post("/inventaire/traitement", 
+        {reg:regles, 
+        exc:excedants, 
+        mnq:manquants})*/
+        //document.location.href = '/inventaire/traitement', true;
+
+        //$(document).ready(traitement(regles,excedants, manquants));
+
+        //document.location.href = "/inventaire/traitement";
+
+
+
+
+        Working code :
+        
+        //document.close();
+        //console.log(document.head.innerHTML);
+        
+         /*
+        $.ajax({
+            url: "/inventaire/redirection",
+            type: "get",
+            }).then((response)=>{console.log(response)});
+
+            .then((response)=>{
+                
+                
+
+                document.body.innerHTML=response;
+                //document.body.innerHTML = response;
+                //document.location.href = "/inventaire/traitement";
+                
+            }).then(traitement(regles, excedants, manquants));*/
+            
