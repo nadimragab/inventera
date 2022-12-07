@@ -64,22 +64,21 @@ function opInv(list) {
         $.ajax({
             url: "/inventaire/redirection",
             type: "post",
-            data: {regles:regles,
-                excedants:excedants,
-                manquants:manquants,
+            data: {statut:"hello"
             }
         }).then((response)=>{document.body.innerHTML = response}).then(()=>traitement(regles,excedants, manquants));
     })
 }
 
+//treating elements
 function traitement(reg, exc, manq)
 {
 
-
-        console.log(reg);
+        //console.log(reg);
         //button.remove();
         table = document.getElementById("traitement");
-        console.log(table);
+        //console.log(table);
+        endButton=document.getElementById("fin-traitement");
         let long=0
         for(i=0; i<manq.length;i++)
         {
@@ -90,10 +89,10 @@ function traitement(reg, exc, manq)
         actUnite= row.insertCell();
         refUnite.textContent=manq[i];
         statUnite.textContent="Manquant";
-        actUnite.innerHTML="<select name='manquants' id='mnq-select'> <option value='action'>---</option><option value='trouve'>retrouve</option><option value='Deteriore'>Deteriore</option>";
+        actUnite.innerHTML="<select name='manquants' id='"+manq[i]+"'> <option value='manquant'>Manquant</option><option value='retrouve'>retrouvé</option><option value='Deteriore'>Déterioré</option>";
         long=j
         }
-        console.log(long);
+        //console.log(long);
         for(i=0; i<exc.length;i++)
         {
         j=long+i+1;
@@ -101,36 +100,46 @@ function traitement(reg, exc, manq)
         refUnite= row.insertCell();
         statUnite= row.insertCell();
         actUnite= row.insertCell();
-        refUnite.textContent=manq[i];
+        refUnite.textContent=exc[i];
         statUnite.textContent="excedant";
-        actUnite.innerHTML="<select name='excedants' id='exc-select'> <option value='action'>---</option><option value='rest'>restituer</option><option value='reaf'>reaffecter</option>";
+        actUnite.innerHTML="<select name='excedants' id='"+exc[i]+"'> <option value='excedant'>Excedant</option><option value='restituer'>réstituer</option><option value='reaffecter'>réaffecter</option>";
 
         }
+        endButton.addEventListener("click", () => (
+                finOp(reg, exc, manq)
 
+        ));
+}
 
-        /*table.row[0].cells[1].deleteCell();
-        //console.log(table.rows.length);
-        for(let i=0;i<table.rows.length;i++)
-        {
-            table.deleteRow(1);
-        }*/
+//End of operation
+function finOp(regles, excedants, manquants)
+{
+    var decisions= new Map();
+    table = document.getElementById("traitement");
+    for (var i = 1, row; row = table.rows[i]; i++) {
+        refUnite=row.cells[0].textContent;
+        //console.log(refUnite);
+        choix = document.getElementById(refUnite);
+        if(choix!=null){
+            //choix = document.getElementById(refUnite);
+            action = choix.options[choix.selectedIndex].value;
+            //console.log(action);
+            //action=row.cells[2];
+            decisions.set(refUnite, action);
+            console.log(decisions);
+        }
+     }
+     for(i=0; i<regles.length;i++)
+     {
+        decisions.set(regles[i], "regle");
+     }
 
-
-
-
-
-
-        /*for(let i=0;i<manq.length;i++)
-        {
-            row =table.insertRow(i);
-            UnitRef= row.insertCell();
-            statut= row.insertCell();
-            action= row.insertCell();
-            UnitRef.textContent=excedants[i];
-            statut.textContent="manquant";
-            action.textContent="Action";
-        }*/
-        
+     $.ajax({
+        url: "/inventaire/traitement",
+        type: "post",
+        data: {decisions:decisions,
+        }
+    }).then((response)=>{console.log(response)})
 
 }
 

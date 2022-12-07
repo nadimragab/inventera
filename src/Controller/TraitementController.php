@@ -56,14 +56,26 @@ class TraitementController extends AbstractController
      */
     public function traitementGeneral(): Response
     {
-        $nbr_liste = 0;
-        $regles = [];
-        $excedants = [];
-        $manquants = [];
-        if (isset($_POST['regles'])) {
-            $regles = $_POST['regles'];
-            $nbr_liste++;
-        }
+        if ('POST' === $_SERVER['REQUEST_METHOD']) {
+            $decisions = [];
+            $nbr_liste = 0;
+            if (isset($_POST['decisions'])) {
+                $decisions = $_POST['decisions'];
+                $nbr_liste++;
+            }
+
+            /*
+            //$regles = [];
+            $excedants = [];
+            if (isset($_POST['excedants'])) {
+                $excedants = $_POST['excedants'];
+                $nbr_liste++;
+            }
+
+            $manquants = [];
+         
+
+
         if (isset($_POST['excedants'])) {
             $excedants = $_POST['excedants'];
             $nbr_liste++;
@@ -71,8 +83,13 @@ class TraitementController extends AbstractController
         if (isset($_POST['manquants'])) {
             $manquants = $_POST['manquants'];
             $nbr_liste++;
+        }*/
+            //$nbr_liste++;
         }
 
-        return $this->render('/inventaire/traitement.html.twig', ['regles' => $regles, 'excedants' => $excedants, 'manquants' => $manquants]);
+        $response = new Response(json_encode($nbr_liste));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 }
