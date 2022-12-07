@@ -58,6 +58,16 @@ class UniteBien
      */
     private $serviceAtt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Inventaire::class)
+     */
+    private $premierInventaire;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Inventaire::class, inversedBy="uniteBiens")
+     */
+    private $DernierInventaire;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -143,6 +153,30 @@ class UniteBien
     public function setServiceAtt(?Service $serviceAtt): self
     {
         $this->serviceAtt = $serviceAtt;
+
+        return $this;
+    }
+
+    public function getPremierInventaire(): ?Inventaire
+    {
+        return $this->premierInventaire;
+    }
+
+    public function setPremierInventaire(?Inventaire $premierInventaire): self
+    {
+        $this->premierInventaire = $premierInventaire;
+
+        return $this;
+    }
+
+    public function getDernierInventaire(): ?Inventaire
+    {
+        return $this->DernierInventaire;
+    }
+
+    public function setDernierInventaire(?Inventaire $DernierInventaire): self
+    {
+        $this->DernierInventaire = $DernierInventaire;
 
         return $this;
     }
