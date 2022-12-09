@@ -134,12 +134,12 @@ function finOp(regles, excedants, manquants)
         decisions.set(regles[i], "regle");
      }
 
-     $.ajax({
-        url: "/inventaire/traitement",
-        type: "post",
-        data: {decisions:decisions,
-        }
-    }).then((response)=>{console.log(response)})
+
+    serialDec= JSON.stringify(Array.from(decisions.entries()));
+    //console.log(serialDec);
+   $.post('http://localhost:8000/inventaire/traitement', {decisions:serialDec}).then((response)=>{console.log(response)});
+    
+
 
 }
 

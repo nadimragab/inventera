@@ -27,6 +27,7 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
+use Symfony\Component\Validator\Constraints\Length;
 
 class TraitementController extends AbstractController
 {
@@ -56,39 +57,22 @@ class TraitementController extends AbstractController
      */
     public function traitementGeneral(): Response
     {
-        if ('POST' === $_SERVER['REQUEST_METHOD']) {
-            $decisions = [];
-            $nbr_liste = 0;
+
+        $dec = [];
+        $decisions = [];
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['decisions'])) {
-                $decisions = $_POST['decisions'];
-                $nbr_liste++;
+
+                $dec = json_decode($_POST['decisions'], true);
+                for ($i = 0; $i < count($dec); $i++) {
+                    $decisions[$dec[$i][0]] = $dec[$i][1];
+                }
             }
 
-            /*
-            //$regles = [];
-            $excedants = [];
-            if (isset($_POST['excedants'])) {
-                $excedants = $_POST['excedants'];
-                $nbr_liste++;
-            }
-
-            $manquants = [];
-         
-
-
-        if (isset($_POST['excedants'])) {
-            $excedants = $_POST['excedants'];
-            $nbr_liste++;
+            $response = new Response(json_encode($decisions));
+            $response->headers->set('Content-Type', 'application/json');
         }
-        if (isset($_POST['manquants'])) {
-            $manquants = $_POST['manquants'];
-            $nbr_liste++;
-        }*/
-            //$nbr_liste++;
-        }
-
-        $response = new Response(json_encode($nbr_liste));
-        $response->headers->set('Content-Type', 'application/json');
 
         return $response;
     }
