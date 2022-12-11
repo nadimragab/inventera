@@ -89,7 +89,7 @@ function traitement(reg, exc, manq)
         actUnite= row.insertCell();
         refUnite.textContent=manq[i];
         statUnite.textContent="Manquant";
-        actUnite.innerHTML="<select name='manquants' id='"+manq[i]+"'> <option value='manquant'>Manquant</option><option value='retrouve'>retrouvé</option><option value='Deteriore'>Déterioré</option>";
+        actUnite.innerHTML="<select name='manquants' id='"+manq[i]+"'> <option value='manquant'>Manquant</option><option value='retrouve'>retrouvé</option><option value='deteriore'>Déterioré</option>";
         long=j
         }
         //console.log(long);

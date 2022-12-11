@@ -67,10 +67,27 @@ class TraitementController extends AbstractController
                 $dec = json_decode($_POST['decisions'], true);
                 for ($i = 0; $i < count($dec); $i++) {
                     $decisions[$dec[$i][0]] = $dec[$i][1];
-                }
-            }
+                    $unite = $this->entityManager->getRepository(UniteBien::class)->findOneBy(['refUnite' => $dec[$i][0]]);
+                    $dureeAm = $unite->getRefBien()->getDureeAmortissement();
 
-            $response = new Response(json_encode($decisions));
+                    if ($dec[$i][1] == "regle" or $dec[$i][1] == "retrouve" or $dec[$i][1] == "restituer") {
+                        $unite->setEtatPhy("en amrotissement");
+                        $nbrInv = ($unite->getNbrInv()) + 1;
+                        $unite->setNbrInv($nbrInv);
+                        if ($nbrInv >= $dureeAm) {
+                            $unite->setEtatPhy("amorti");
+                        } else {
+                            $unite->setEtatPhy("en amrotissement");
+                        }
+                        $this->entityManager->persist($unite);
+                    } else if ($dec[$i][1] == "deteriore") {
+                        $unite->setEtatPhy("deteriore");
+                        $this->entityManager->persist($unite);
+                    }
+                }
+                $this->entityManager->flush();
+            }
+            $response = new Response(json_encode($dureeAm));
             $response->headers->set('Content-Type', 'application/json');
         }
 
