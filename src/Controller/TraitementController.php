@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Bien;
+use App\Entity\Inventaire;
 use App\Form\BienType;
 use App\Entity\Service;
 use App\Entity\Structure;
@@ -69,11 +70,21 @@ class TraitementController extends AbstractController
                     $decisions[$dec[$i][0]] = $dec[$i][1];
                     $unite = $this->entityManager->getRepository(UniteBien::class)->findOneBy(['refUnite' => $dec[$i][0]]);
                     $dureeAm = $unite->getRefBien()->getDureeAmortissement();
+                    $year = (int) date("Y");
+                    $inv = $this->entityManager->getRepository(Inventaire::class)->findOneBy(['year' => $year]);
+                    if ($dec[$i][1] == "regle" or $dec[$i][1] == "retrouve" or $dec[$i][1] == "restituer" or $dec[$i][1] == "reaffecter") {
 
-                    if ($dec[$i][1] == "regle" or $dec[$i][1] == "retrouve" or $dec[$i][1] == "restituer") {
-                        $unite->setEtatPhy("en amrotissement");
                         $nbrInv = ($unite->getNbrInv()) + 1;
                         $unite->setNbrInv($nbrInv);
+
+                        if ($unite->getEtatPhy() == "Nouveau") {
+                            $unite->setPremierInventaire($inv);
+                            $unite->setDernierInventaire($inv);
+                        } else {
+                            $unite->setDernierInventaire($inv);
+                        }
+
+
                         if ($nbrInv >= $dureeAm) {
                             $unite->setEtatPhy("amorti");
                         } else {
@@ -87,7 +98,8 @@ class TraitementController extends AbstractController
                 }
                 $this->entityManager->flush();
             }
-            $response = new Response(json_encode($dureeAm));
+            $status = "ok";
+            $response = new Response(json_encode($status));
             $response->headers->set('Content-Type', 'application/json');
         }
 

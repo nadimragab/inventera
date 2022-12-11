@@ -34,6 +34,11 @@ class Inventaire
      */
     private $uniteBiens;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $year;
+
     public function __construct()
     {
         $this->uniteBiens = new ArrayCollection();
@@ -94,6 +99,18 @@ class Inventaire
                 $uniteBien->setDernierInventaire(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getYear(): ?int
+    {
+        return $this->year;
+    }
+
+    public function setYear(?int $year): self
+    {
+        $this->year = $year;
 
         return $this;
     }

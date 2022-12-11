@@ -6,7 +6,7 @@ button=document.getElementById("fin");
 //Getting QRs from scanner
 function getQr() {
     var qr = $('#qr').val();
-    url='http://localhost:8000/api/unites/'+qr;
+    url='/api/unites/'+qr;
     if(qr.length>10 && qrs.indexOf(qr)===-1){
     document.getElementById("qr").value='';
     qrs.push(qr);
@@ -137,7 +137,7 @@ function finOp(regles, excedants, manquants)
 
     serialDec= JSON.stringify(Array.from(decisions.entries()));
     //console.log(serialDec);
-   $.post('http://localhost:8000/inventaire/traitement', {decisions:serialDec}).then((response)=>{console.log(response)});
+   $.post('/inventaire/traitement', {decisions:serialDec}).then((response)=>{console.log(response)});
     
 
 
