@@ -8,6 +8,9 @@ use App\Entity\Service;
 use App\Entity\Structure;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -19,7 +22,7 @@ class DashboardController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        return parent::index();
+        return $this->render('admin.html.twig');
     }
 
     public function configureDashboard(): Dashboard
@@ -27,6 +30,7 @@ class DashboardController extends AbstractDashboardController
         return Dashboard::new()
             ->setTitle('Inventera');
     }
+
 
     public function configureMenuItems(): iterable
     {

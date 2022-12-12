@@ -21,8 +21,9 @@ class ServiceCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+            TextField::new('referenceService'),
             TextField::new('nomService'),
-            SlugField::new('slug')->setTargetFieldName('nomService'),
+            //SlugField::new('slug')->setTargetFieldName('nomService'),
             /*ImageField::new('image')
                 ->setBasePath('uploads/')
                 ->setFormTypeOptions(['mapped'=>false, 'required'=>false])
@@ -30,13 +31,11 @@ class ServiceCrudController extends AbstractCrudController
                 ->setUploadedFileNamePattern('[randomhas].[extension]')
                 ->setRequired(false),
             */
-            TextField::new('image'),
-            TextField::new('referenceService'),
+            //TextField::new('image'),
+
             TextareaField::new('description'),
             AssociationField::new('structure')
 
         ];
     }
-    
-
 }
