@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Liste des biens - inventera {% endblock %}
+
+{% block content %}
+
+<h1><center> Tableau des amortissements </center> </h1>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Référence</th>
+        <th scope="col">Désignation</th>
+        <th scope="col">Valeur</th>
+        <th scope="col">Amortissement</th>
+        <th scope="col">Quantité</th>
+        <th scope="col">Structure</th>
+        <th scope="col">cmp-act</th>
+        <th scope="col">cmp-amrt</th>
+        <th scope="col">Cmp-dot</th>
+        <th scope="col">Code nat-inv</th>
+        <th scope="col">Libellé nat-inv</th>
+        <th scope="col">Etat d'amortissements</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for bien in biens %}    
+      <tr>
+        <th scope="row">{{bien.id}}</th>
+        <td> <a href=" {{path('app_show_bien', {'slug': bien.slug})}}">{{bien.referenceBien}} </a></td>
+        <td>{{bien.nom}}</td>
+        <td>{{bien.valeurAcquisition}}</td>
+        <td>{{bien.valeurAmortissement}}</td>
+        <td> {{bien.nombreUniteLot}} </td>
+        <td> {{ bien.structure}}</td>
+        <td> {{ bien.compteActif }} </td>
+        <td> {{ bien.compteAmortissement }} </td>
+        <td> {{ bien.compteDotation }} </td>
+        <td> {{ bien.codeInvNat }} </td>
+        <td> {{ bien.libelleInvNat }} </td>
+        <td> {{ bien.etatAmortissement }} </td>
+        <td></td>
+      </tr>
+      {% endfor  %}
+    </tbody>
+  </table>
+
+
+
+{% endblock %}

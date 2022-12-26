@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+{% block content%}
+	<br>
+	<br>
+	<br>
+	<center>
+		<form action="http://localhost:8000/file/import/importCSV" method="post" enctype="multipart/form-data">
+			<input type="file" name="csv-file" id="csv-file" accept=".csv"/>
+			<br>
+			<br>
+			<br>
+			<center>
+				<input type="submit" value="Valider" name="ouvrir-fichier"/>
+			</center>
+		</form>
+
+	</center>
+	<br>
+	<br>
+	<br>
+
+
+{% endblock %}

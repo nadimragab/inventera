@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="An inventive way in managing inventory">
+		<meta name="author" content="Nadim ELSAKAAN">
+		<meta name="generator" content="Jekyll v4.1.1">
+		<title>
+			{% block title %}Inventera home
+			{% endblock %}
+		</title>
+		<link
+		rel="icon" href="/assets/img/immobilisations-c.jpg"/>
+		<!-- Bootstrap core CSS -->
+		<link href="{{ asset ('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+
+		<style>
+			.bd-placeholder-img {
+				font-size: 1.125rem;
+				text-anchor: middle;
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+
+			@media(min-width: 768px) {
+				.bd-placeholder-img-lg {
+					font-size: 3.5rem;
+				}
+			}
+		</style>
+		<!-- Custom styles for this template -->
+		<link href={{ asset ('assets/css/carousel.css')}} rel="stylesheet">
+		<link rel="stylesheet" href="{{ asset('assets/css/inventera.css') }}">
+	</head>
+	<body>
+		<header>
+			<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+				{% if app.user %}
+					<a class="navbar-brand" href="{{ path('app_account')}}">
+						Mon espace
+					</a>
+				{% endif %}
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarCollapse">
+					<ul class="navbar-nav mr-auto">
+						{% if app.user %}
+							<li class="nav-item active">
+								<a class="nav-link" href="/admin">
+									Espace administrateur
+									<span class="sr-only">(current)</span>
+								</a>
+							</li>
+							<li class="nav-item active">
+								<a class="nav-link" href="/les-biens">
+									Table des amortissements
+									<span class="sr-only">(current)</span>
+								</a>
+							</li>
+						{% endif %}
+					</ul>
+					<div class="navbar_item_custom">
+						{% if app.user %}
+							<a href="{{ path('app_account_password') }}">
+								Mon compte
+								<small>({{app.user.prenom | capitalize }})</small>
+							</a>
+							|
+							<a href="{{ path('app_register') }}">
+								Nouvel utilisateur</a>
+							|
+							<a href="{{ path('app_logout') }}">Deconnexion</a>
+						{% else %}
+							<a href="{{ path('app_login') }}">Portail Inventera</a>
+
+						{% endif %}
+					</div>
+				</div>
+			</nav>
+		</header>
+
+		<main role="main">
+
+			<!-- Marketing messaging and featurettes
+															    ================================================== -->
+			<!-- Wrap the rest of the page in another container to center all the content. -->
+
+
+				<div class="container marketing {% if block('carousel') is not defined %}mt-5{% endif %} ">{% block content %}{% endblock %} </div>
+				<!-- /.container -->
+
+
+				<!-- FOOTER -->
+				<p class="float-bottom">
+					{% if block('footer') is not defined %}
+						{% block footer %}
+							<footer class="container">
+								<p class="float-right">
+									Inventera 0.1 Alpha
+								</p>
+								<p>&copy; ELSE technologies, SS2I.
+								</p>
+							</footer>
+						{% endblock %}
+					{% endif %}
+				</p>
+			</main>
+			<script src="/assets/js/jquery.js"></script>
+			<script src="/assets/js/axios.js"></script>
+			<script src="/assets/js/traitement.js"></script>
+			<script src="/assets/js/inventaire.js"></script>
+			<script src="/assets/js/bootstrap.bundle.js"></script>
+		</body>
+	</html>

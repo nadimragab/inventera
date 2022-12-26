@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+{% block content%}
+	<br>
+	<br>
+	<br>
+	<br>
+	<button id="import" onclick="location.href='/file/import/openCSV'" class="btn btn-primary btn-lg btn-block">
+		Importer un fichier CSV
+	</button>
+	<br>
+	<br>
+	<button id="import" onclick="location.href='/file/import/xlsx'" class="btn btn-primary btn-lg btn-block">
+		Importer un fichier Excel
+	</button>
+	<br>
+	<br>
+</button>
+<button id="import" onclick="location.href='/file/import/JSON'" class="btn btn-primary btn-lg btn-block">
+	Importer un fichier JSON
+</button>{% endblock %}

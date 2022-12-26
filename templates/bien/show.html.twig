@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ bien.nom }} {% endblock %}
+
+{% block content %}
+
+
+       <h1>   {{ bien.nom}} </h1></br>
+
+        <div class="row">
+        <div class="col-md-3" my-auto>
+                    <img src="{{ asset('/uploads/' ~ bien.image) }}" alt="{{ bien.nom}}" class="img-fluid">
+        </div>
+
+        <div "col-md-5" my-auto>
+            <span> Référence : {{bien.referenceBien}} </span>
+            <p> Description : {{ bien.description }}</p>
+            <p> Nombre d'unités : {{ bien.nombreUniteLot }}</p>
+            <p> Structure de rattachement : {{ bien.structure}}</p>
+            <p> Service de rattachement : {{ bien.service}}</p>
+            <p> Amortissement mensuel : {{bien.valeurAmortissement}} </p>
+            <p> Compte actif : {{ bien.compteActif }} </p>
+            <p> Compte amortissement : {{ bien.compteAmortissement }} </p>
+            <p> Compte dotation : {{ bien.compteDotation }} </p>
+            <p> Code nature inventaire : {{ bien.codeInvNat }} </p>
+            <p> Libellé nature inventaire : {{ bien.libelleInvNat }} </p>
+        
+
+
+        </div>
+
+        <div "col-md-3" my-auto>
+   
+        </div>
+        </div>
+        </br></br>
+        <center><a href=" {{path('app_qr_bien', {'slug': bien.slug})}}"> Génération de code QR</a></center>
+
+
+
+{% endblock %}

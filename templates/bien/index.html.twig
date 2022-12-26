@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bien inventera{% endblock %}
+
+{% block content %}
+	{% if notification %}
+		<div class="alert alert-info">
+			{{notification}}
+		</div>
+	{% endif %}
+<h1>Créer un nouveau Bien</h1>
+    {{ form(form) }}
+{% endblock %}

@@ -1,0 +1,291 @@
+    /**
+     *function from InventaireController
+     *  @Route("/inventaire/type/scanner/{reactRouting}", name="inventaire_scanner", defaults={"reactRouting": null})
+     * 
+    */
+    public function scanner(Request $request): Response 
+    {
+        $structure= $_GET['structure'];
+        $service= $_GET['service'];
+        $biens = $this->entityManager->getRepository(Bien::class)->findAll($service);
+        $array=array();
+        foreach ($biens as &$value) {
+            $unites=$value->getUniteBiens();
+            foreach ($unites as &$unite) {
+                array_push($array,$unite);
+            }
+            #dd($array[4]);
+        }
+
+
+        #$str = $this->entityManager->getRepository(Structure::class)->findAll();
+
+        $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
+        $normalizer = new ObjectNormalizer($classMetadataFactory);
+        $defaultContext = [
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return $object->getName();
+            },
+        ];
+
+
+        $serializer = new Serializer([$normalizer]);
+
+        #$data = $serializer->normalize($str, null, ['groups' => 'api']);
+        $data = $serializer->normalize($array, null, ['groups' => 'api']);
+        $response = new Response(json_encode($data));
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
+    }
+
+
+
+ from api function in the same controller
+
+
+          $array=array();
+        foreach ($biens as &$value) {
+            $unites=$value->getUniteBiens();
+            foreach ($unites as &$unite) {
+                array_push($array,$unite);
+                //array est la liste des biens.
+            }
+        $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
+        $normalizer = new ObjectNormalizer($classMetadataFactory);
+        $defaultContext = [
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return $object->getName();
+            },
+        ];
+        $serializer = new Serializer([$normalizer]);
+        #$data = $serializer->normalize($str, null, ['groups' => 'api']);
+        $data = $serializer->normalize($array, null, ['groups' => 'api']);
+        $response = new Response(json_encode($data));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;  
+    }
+
+
+    from restful.html.twig
+        <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Designation</th>
+                <th scope="col">Référence Unite</th>
+                <th scope="col">nombre inventaires</th>
+                <th scope="col">Etat physique</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="unite"></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    from inventaire.js function getQr
+        /*fetch(url, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+
+    })
+    .then(response => response.json())
+    .then(response => console.log(response))
+    .then(function display(response){
+        element= document.getElementById('unite');
+
+    })
+
+    function data(){
+        return{ unite: null,}
+    }
+    axios.get(url).then(response => (this.unite=response)).then(response=>console.log(response))*/
+   
+
+
+
+
+    lastly removed from inventaire.js (operational code)
+
+    /*
+    UnitRef= document.querySelector('td.js-unit-ref');
+    UnitStr= document.querySelector('td.js-unit-str');
+    UnitSer= document.querySelector('td.js-unit-ser');
+    Unitnbr= document.querySelector('td.js-unit-nbr');
+    Unitep= document.querySelector('td.js-unit-ep');
+    */
+
+
+
+    resftul html.twig
+    onfocus="this.value=''" required minlength="11" name="qr" id="qr" oninput="getQr()" oninput="getQr()"
+
+
+    OpInv function in inventaire.js
+                /*
+        const options = {
+            method: 'post',
+            url: '/inventaire/traitement',
+            data: {
+              regles: regles,
+              excedants: excedants,
+              manquants: manquants,
+            }
+          };*/
+
+                /*
+            axios.post('http://localhost:8000/inventaire/traitement', {
+            regles: regles,
+            excedants: excedants,
+            manquants: manquants,
+            }).then(()=>document.location.href = "/inventaire/traitement");
+            */
+            //.then((response)=>console.log(response));
+          // send the request
+          //axios(options);
+
+          //document.location.href = "/inventaire/traitement";
+
+
+
+
+/*
+//Manage actions of treatements
+function traitement(regles, excedants, manquants) {
+
+    window.addEventListener('load', () =>{
+    //document.location.href = "/inventaire/traitement";
+    table = document.getElementById("traitement");
+
+    console.log(table);
+    for(let i=0;i<regles.length;i++)
+    {
+        row =table.insertRow(i);
+        UnitRef= row.insertCell();
+        statut= row.insertCell();
+        action= row.insertCell();
+        UnitRef.textContent=excedants[i];
+        statut.textContent="regles";
+        action.textContent="Action";
+    }
+});
+*/
+
+
+
+}
+
+              fetch(url, {
+            method : "POST",          
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body : "test"
+        }).then(()=>);
+
+
+    inventairecontroller function restful
+            /*
+        $biens = $this->entityManager->getRepository(Bien::class)->findAll($service);
+        $array=array();
+        foreach ($biens as &$value) {
+            $unites=$value->getUniteBiens();
+            foreach ($unites as &$unite) {
+                array_push($array,$unite);
+                //array est la liste des biens.
+            }
+
+        }*/
+        #$str = $this->entityManager->getRepository(Structure::class)->findAll();
+    
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+                //console.log(document.location);
+        //traitement(regles,excedants, manquants);
+        /*
+
+        
+        
+        axios.post("/inventaire/traitement", 
+        {reg:regles, 
+        exc:excedants, 
+        mnq:manquants})*/
+        //document.location.href = '/inventaire/traitement', true;
+
+        //$(document).ready(traitement(regles,excedants, manquants));
+
+        //document.location.href = "/inventaire/traitement";
+
+
+
+
+        //console.log(document.location);
+        //traitement(regles,excedants, manquants);
+        /*
+
+        
+        
+        axios.post("/inventaire/traitement", 
+        {reg:regles, 
+        exc:excedants, 
+        mnq:manquants})*/
+        //document.location.href = '/inventaire/traitement', true;
+
+        //$(document).ready(traitement(regles,excedants, manquants));
+
+        //document.location.href = "/inventaire/traitement";
+
+
+
+
+        Working code :
+        
+        //document.close();
+        //console.log(document.head.innerHTML);
+        
+         /*
+        $.ajax({
+            url: "/inventaire/redirection",
+            type: "get",
+            }).then((response)=>{console.log(response)});
+
+            .then((response)=>{
+                
+                
+
+                document.body.innerHTML=response;
+                //document.body.innerHTML = response;
+                //document.location.href = "/inventaire/traitement";
+                
+            }).then(traitement(regles, excedants, manquants));*/
+            
+
+                    /*table.row[0].cells[1].deleteCell();
+        //console.log(table.rows.length);
+        for(let i=0;i<table.rows.length;i++)
+        {
+            table.deleteRow(1);
+        }*/
+
+
+
+
+
+
+        /*for(let i=0;i<manq.length;i++)
+        {
+            row =table.insertRow(i);
+            UnitRef= row.insertCell();
+            statut= row.insertCell();
+            action= row.insertCell();
+            UnitRef.textContent=excedants[i];
+            statut.textContent="manquant";
+            action.textContent="Action";
+        }*/

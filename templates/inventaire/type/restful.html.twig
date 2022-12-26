@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Inventera
+{% endblock %}
+
+{% block content%}
+	<script>
+		var structure = '{{ structure }}'
+var service ='{{ service }}'
+	</script>
+	<p>
+		<center>
+
+			{{ structure }}
+			-
+			{{ service}}
+			<br>
+			{{ length }}
+			Biens
+
+		</center>
+	</p>
+	<center>
+		<input type="text" id="qr">
+	</center><br>
+	<center>
+		<span class="js-unit"></span>
+	</center>
+	<center>
+		<table class="table" id="inventaire">
+			<thead>
+				<tr>
+					<th scope="col">Référence Unite
+					</th>
+
+					<th scope="col">Structure</th>
+					<th scope="col">Service</th>
+					<th scope="col">nombre inventaires</th>
+					<th scope="col">Etat physique</th>
+
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</center>
+
+	<button id="fin" onclick="this.disabled=true" class="btn btn-primary btn-lg btn-block">
+		Terminer l 'operation</button>
+
+
+{% endblock %}
+{% block javascripts %}{% endblock %}
