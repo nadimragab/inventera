@@ -107,7 +107,7 @@ class Bien
     private $libelleInvNat;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="float", nullable=true)
      */
     private $valeurAcquisition;
 
@@ -346,12 +346,12 @@ class Bien
         return $this;
     }
 
-    public function getValeurAcquisition(): ?int
+    public function getValeurAcquisition(): ?float
     {
         return $this->valeurAcquisition;
     }
 
-    public function setValeurAcquisition(?int $valeurAcquisition): self
+    public function setValeurAcquisition(?float $valeurAcquisition): self
     {
         $this->valeurAcquisition = $valeurAcquisition;
 

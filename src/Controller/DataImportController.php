@@ -60,27 +60,35 @@ class DataImportController extends AbstractController
             $array= array();
             $bien = new Bien();
             $cmp=0;
-            while(($line=\fgetcsv($csv, 1000, ";"))!==false)
+            $j=560;
+            while(($line=\fgetcsv($csv, 410, ";"))!==false and $j<1000)
             {
-                $bien->setId($line[0]);
+                $j=$j+1;
+                $bien = new Bien();
+                $identifier="BI-2023-".$j.rand(100,999);
+                /*$bien->setId($line[0]);
                 $bien->setReferenceBien($line[0]);
-                $bien->setSlug($line[0]);
-                $structure = $this->entityManager->getRepository(Structure::class)->findOneBy(['nomStructure' =>$line[1]] );
-                $service = $this->entityManager->getRepository(Service::class)->findOneBy(['nomService' =>$line[2]] );
+                $bien->setSlug($line[0]);*/
+                $bien->setId($identifier);
+                $bien->setReferenceBien($identifier);
+                $bien->setSlug($identifier);
+                $structure = $this->entityManager->getRepository(Structure::class)->findOneBy(['nomStructure' =>$line[0]] );
+                $service = $this->entityManager->getRepository(Service::class)->findOneBy(['nomService' =>$line[1]] );
                 $bien->setStructure($structure);
                 $bien->setService($service);
-                $bien->setNom($line[3]);
-                $date= date_create($line[4]);
+                $bien->setNom($line[2]);
+                $date= date_create($line[3]);
                 $bien->setDateAcquisition($date);
-                $bien->setValeurAcquisition((int) $line[5]);
-                $bien->setDureeAmortissement((int) $line[6]);
-                $bien->setNombreUniteLot((int) $line[7]);
-                $bien->setCompteActif((int) $line[8]);
-                $bien->setCompteAmortissement((int) $line[9]);
-                $bien->setCompteDotation((int) $line[10]);
+                $bien->setValeurAcquisition(floatval(str_replace(' ', '', $line[4])));
+                $bien->setDureeAmortissement((int) $line[5]);
+                $bien->setNombreUniteLot((int) $line[6]);
+                $bien->setCompteActif((int) $line[7]);
+                $bien->setCompteAmortissement((int) $line[8]);
+                $bien->setCompteDotation((int) $line[9]);
                 $this->entityManager->persist($bien);
-                for ($i = 0; $i < (int) $line[7]; $i++) {
-                    $refUnite = $line[0] . "-" . (string) $i;
+                $this->entityManager->flush();
+                for ($i = 0; $i < (int) $line[6]; $i++) {
+                    $refUnite = $identifier . "-" . (string) $i;
                     #dd($refUnite);
                     $unite = new UniteBien();
                     $unite->setId($refUnite);
@@ -93,11 +101,12 @@ class DataImportController extends AbstractController
                     $unite->setServiceAtt($service);
                     //dd($unite);
                     $this->entityManager->persist($unite);
-
+                    $this->entityManager->flush();
     
                 }
-               $this->entityManager->flush();
+                
             }
+            
             fclose($csv);
         }
     
