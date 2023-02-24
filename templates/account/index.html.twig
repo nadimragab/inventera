@@ -11,29 +11,29 @@
 		</h1>
 	</center><br/><br/><br>
 		<center>
-			<button type="button" onclick="location.href='/structure'" class="btn btn-primary btn-lg btn-block">Création de structures</button>
+			<button type="button" onclick="location.href='{{ path('app_structure') }}'" class="btn btn-primary btn-lg btn-block">Création de structures</button>
 		</center>
 	</br>
 	<br>
 		<center>
-			<button type="button" onclick="location.href='/service'" class="btn btn-primary btn-lg btn-block">Création de services</button>
+			<button type="button" onclick="location.href='{{ path('app_service') }}'" class="btn btn-primary btn-lg btn-block">Création de services</button>
 		</center>
 	</br>
 	<br>
 		<center>
-			<button type="button" onclick="location.href='/bien'" class="btn btn-primary btn-lg btn-block">
+			<button type="button" onclick="location.href='{{ path('app_bien') }}'" class="btn btn-primary btn-lg btn-block">
 				Création de nouveaux biens</button>
 		</center>
 	</br>
 	<br>
 		<center>
-			<button type="button" id="nvlop" onclick="location.href='/inventaire'" class="btn btn-primary btn-lg btn-block">
+			<button type="button" id="nvlop" onclick="location.href='{{ path('app_inventaire') }}'" class="btn btn-primary btn-lg btn-block">
 				Commencer une opération d'inventaire</button>
 		</center>
 	</br>
 	<br>
 		<center>
-			<button type="button" id="nvlop" onclick="location.href='/file/import/'" class="btn btn-primary btn-lg btn-block">
+			<button type="button" id="nvlop" onclick="location.href='{{ path('file_import') }}'" class="btn btn-primary btn-lg btn-block">
 				Importer un fichier</button>
 		</center>
 	</br>
