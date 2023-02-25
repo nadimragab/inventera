@@ -6,7 +6,7 @@ button = document.getElementById("fin");
 //Getting QRs from scanner
 function getQr() {
     var qr = $('#qr').val();
-    url = '/api/unites/' + qr;
+    url = '/public/api/unites/' + qr;
     if (qr.length > 10 && qrs.indexOf(qr) === -1) {
         document.getElementById("qr").value = '';
         qrs.push(qr);
