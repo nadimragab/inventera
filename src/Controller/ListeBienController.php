@@ -4,10 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Bien;
 use App\Form\BienqrType;
+use App\Entity\UniteBien;
 use Endroid\QrCode\QrCode;
+use Doctrine\ORM\Mapping\Id;
 use App\Service\QrcodeService;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Id;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -86,6 +87,31 @@ class ListeBienController extends AbstractController
         $qrCode = $qrcodeService->qrcode($bien->getReferenceBien());
         return $this->render('bien/qrcode.html.twig', [
             'bien' => $bien,
+            'qrCode' => $qrs
+        ]);
+    }
+
+    /**
+     * @Route("/impmassive", name="app_qrs_impression")
+     */
+    public function qrs(Request $request, QrcodeService $qrcodeService)
+    {
+        $bienArray = $this->entityManager->getRepository(UniteBien::class)->findAll();
+        #_______________________QR code generation code______________________________________________
+
+        $qrCode = null;
+        #$qrArray = $bien->getUniteBiens();
+        $qrs = array();
+        #____________________________________________________________________________________________
+ 
+        #for ($i = 0; $i < sizeof($bienArray); $i++) {
+        for ($i = 0; $i < 100; $i++) {
+            $qrCode = $qrcodeService->qrcode($bienArray[$i]->getRefUnite());
+            array_push($qrs, $qrCode);
+        }
+        #$qrCode = $qrcodeService->qrcode($bien->getReferenceBien());
+        return $this->render('bien/qrs.html.twig', [
+            'bien' => $bienArray,
             'qrCode' => $qrs
         ]);
     }

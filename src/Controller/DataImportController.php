@@ -60,22 +60,21 @@ class DataImportController extends AbstractController
             $array= array();
             $bien = new Bien();
             $cmp=0;
-            $j=560;
-            while(($line=\fgetcsv($csv, 410, ";"))!==false and $j<1000)
+            $j=747;
+            while(($line=\fgetcsv($csv, 410, ";"))!==false)
             {
                 $j=$j+1;
                 $bien = new Bien();
-                $identifier="BI-2023-".$j.rand(100,999);
-                /*$bien->setId($line[0]);
-                $bien->setReferenceBien($line[0]);
-                $bien->setSlug($line[0]);*/
+                $identifier="BI-2022-".$j.rand(100,999);
                 $bien->setId($identifier);
                 $bien->setReferenceBien($identifier);
                 $bien->setSlug($identifier);
-                $structure = $this->entityManager->getRepository(Structure::class)->findOneBy(['nomStructure' =>$line[0]] );
-                $service = $this->entityManager->getRepository(Service::class)->findOneBy(['nomService' =>$line[1]] );
+
+                $structure=$this->entityManager->getRepository(Structure::class)->findOneBy(['id' =>1]);
                 $bien->setStructure($structure);
+                $service = $this->entityManager->getRepository(Service::class)->findOneBy(['id' =>2]);
                 $bien->setService($service);
+
                 $bien->setNom($line[2]);
                 $date= date_create($line[3]);
                 $bien->setDateAcquisition($date);
@@ -89,7 +88,6 @@ class DataImportController extends AbstractController
                 $this->entityManager->flush();
                 for ($i = 0; $i < (int) $line[6]; $i++) {
                     $refUnite = $identifier . "-" . (string) $i;
-                    #dd($refUnite);
                     $unite = new UniteBien();
                     $unite->setId($refUnite);
                     $unite->setRefBien($bien);
@@ -99,7 +97,6 @@ class DataImportController extends AbstractController
                     $unite->setRefUnite($refUnite);
                     $unite->setStructureAtt($structure);
                     $unite->setServiceAtt($service);
-                    //dd($unite);
                     $this->entityManager->persist($unite);
                     $this->entityManager->flush();
     

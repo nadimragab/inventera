@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+
+	<center>
+		{% if qrCode %}
+			{%  for qr in qrCode %}
+				<tr><img class='qr' src="{{qr}}" , alt="qr-code"></tr><br>
+				<!--<div style="break-after:page"></div>-->
+			{% endfor %}
+		{% endif %}
+
+	</center>
+
+
+{% endblock %}
+{% block footer %}{% endblock %}
