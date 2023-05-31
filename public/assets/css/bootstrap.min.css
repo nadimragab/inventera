@@ -11394,17 +11394,18 @@ a.text-dark:hover {
     }
 
     @page {
-
         width: 50.8mm;
         height: 25.4mm;
         padding: 1mm;
-        margin: 0px 0px 0px 0px;
+        margin: 1px 1px 1px 1px;
+
     }
 
     .qr {
-        width: 28mm;
-        height: 20mm;
-        margin: 2px 2px 2px 2px;
+        transform: rotate(-90deg);
+        width: 26mm;
+        height: 24mm;
+        margin: 1px 1px 1px 1px;
     }
 
 
