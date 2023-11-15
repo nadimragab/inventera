@@ -96,7 +96,7 @@ class ListeBienController extends AbstractController
      */
     public function qrs(Request $request, QrcodeService $qrcodeService)
     {
-        $bienArray = $this->entityManager->getRepository(UniteBien::class)->findBy(["structureAtt" => "2"]);;
+        $bienArray = $this->entityManager->getRepository(UniteBien::class)->findBy(["structureAtt" => "1"]);;
         #_______________________QR code generation code______________________________________________
         #dd($bienArray);
         $qrCode = null;
@@ -104,9 +104,9 @@ class ListeBienController extends AbstractController
         $qrs = array();
         #____________________________________________________________________________________________
         #count($bienArray)
-        
-        for ($i = 0; $i < 100; $i++) {
-        #for ($i = 0; $i < 10; $i++) {
+        #for ($i = 0; $i < count($bienArray); $i++) {
+        for ($i = 2600; $i < count($bienArray); $i++) {
+            #for ($i = 0; $i < 4; $i++) {
             $qrCode = $qrcodeService->qrcode($bienArray[$i]->getRefUnite());
             array_push($qrs, $qrCode);
         }

@@ -36,8 +36,13 @@ class BienController extends AbstractController
             $bien = $form->getData();
             $nomBien = $form->get('nom')->getData();
             $bien->setSlug($slugger->slug($nomBien));
-            $referenceBien = $form->get('referenceBien')->getData();
+            $referenceBien = "BI-" . date("Y") . "-" . rand(1000000, 9999999);
+            while ($this->entityManager->getRepository(Bien::class)->findOneBy(['referenceBien' => $referenceBien]) != null) {
+                $referenceBien = "BI-" . date("Y") . "-" . rand(100000, 999999);
+            }
+            #$referenceBien = $form->get('referenceBien')->getData();
             $bien->setId($referenceBien);
+            $bien->setReferenceBien($referenceBien);
             $bien->setValeurAmortissement();
             $bien->setEtatAmortissement();
             #new code for image upload__________________________________________________
@@ -63,7 +68,8 @@ class BienController extends AbstractController
 
             $nbr = (int)$form->get('nombreUniteLot')->getData();
             $batchSize = 1;
-            $ref = (string)$form->get('referenceBien')->getData();
+            $ref = $referenceBien;
+            #(string)$form->get('referenceBien')->getData();
             $strAtt = $form->get('Structure')->getData();
             $serAtt = $form->get('Service')->getData();
             for ($i = 0; $i < $nbr; $i++) {

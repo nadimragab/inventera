@@ -29,34 +29,33 @@ use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
 
 class QrcodeService
 {
-    protected $builder; 
+    protected $builder;
 
     public function __construct(BuilderInterface $builder)
     {
-        $this->builder =$builder; 
-    } 
+        $this->builder = $builder;
+    }
 
     public function qrcode($reference)
     {
         $result = Builder::create()
-        ->writer(new PngWriter())
-        ->writerOptions([])
-        ->data($reference)
-        ->encoding(new Encoding('UTF-8'))
-        ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
-        ->size(800)
-        ->margin(50)
-        ->roundBlockSizeMode(new RoundBlockSizeModeMargin())
-        #->logoPath(\dirname(__DIR__,2).'/public/assets/img/immobilisations.jpg')->logoResizeToWidth(50)
-        ->labelText($reference)
-        ->labelFont(new NotoSans(80))
-        ->labelAlignment(new LabelAlignmentCenter())
-        ->validateResult(false)
-        ->build();
-        return $result->getDataUri(); 
- 
+            ->writer(new PngWriter())
+            ->writerOptions([])
+            ->data($reference)
+            ->encoding(new Encoding('UTF-8'))
+            ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
+            ->size(1100)
+            ->margin(50)
+            ->roundBlockSizeMode(new RoundBlockSizeModeMargin())
+            #->logoPath(\dirname(__DIR__,2).'/public/assets/img/immobilisations.jpg')->logoResizeToWidth(50)
+            ->labelText($reference)
+            ->labelFont(new NotoSans(105))
+            ->labelAlignment(new LabelAlignmentCenter())
+            ->validateResult(false)
+            ->build();
+        return $result->getDataUri();
     }
-        #$namePng=uniqid('','').'.jpg';
-        #$result->saveToFile((\dirname(__DIR__,2).'/public/assets/img/qr-code/'.$namePng));
-    
+    #$namePng=uniqid('','').'.jpg';
+    #$result->saveToFile((\dirname(__DIR__,2).'/public/assets/img/qr-code/'.$namePng));
+
 }
