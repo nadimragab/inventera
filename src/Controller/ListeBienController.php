@@ -26,29 +26,43 @@ class ListeBienController extends AbstractController
     }
 
     /**
-     * @Route("/les-biens", name="app_liste_bien")
+     * @Route("/les-biens/{page}", name="app_liste_bien")
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
 
 
         $biens = $this->entityManager->getRepository(Bien::class)->findAll();
 
         #___________________test________________________
-        foreach ($biens as $bien) {
+        /*foreach ($biens as $bien) {
             $bien->setEtatAmortissement();
             #$bien->setCodeInvNat("000");
             $this->entityManager->flush();
-        }
+        }*/
 
         #_______________________________________________
         $biens = $this->entityManager->getRepository(Bien::class)->findAll();
+        #_____________________pagination__________________________________
+        /*
+        $totalElements = count($biens);
 
+        $perPage = 10; // Nombre d'éléments par page
+        $page = $request->query->getInt('page', 1); // Récupérer le numéro de page depuis la requête
+
+        $offset = ($page - 1) * $perPage;
+        $paginatedElements = array_slice($biens, $offset, $perPage);*/
+        #_________________________________________________________________
         return $this->render('liste_bien/index.html.twig', [
-
-            'biens' => $biens
+            "biens" => $biens
+            /*'paginatedElements' => $paginatedElements,
+            'totalElements' => $totalElements,
+            'perPage' => $perPage,
+            'currentPage' => $page,
+            'totalPages' => ceil($totalElements / $perPage),*/
         ]);
     }
+
 
     /**
      * @Route("/bien/{slug}", name="app_show_bien")

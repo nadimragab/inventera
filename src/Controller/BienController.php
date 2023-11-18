@@ -34,6 +34,7 @@ class BienController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $bien = $form->getData();
+            #dd($bien);
             $nomBien = $form->get('nom')->getData();
             $bien->setSlug($slugger->slug($nomBien));
             $referenceBien = "BI-" . date("Y") . "-" . rand(1000000, 9999999);
@@ -43,8 +44,16 @@ class BienController extends AbstractController
             #$referenceBien = $form->get('referenceBien')->getData();
             $bien->setId($referenceBien);
             $bien->setReferenceBien($referenceBien);
+            if ($form->get('nombreUniteLot')->getData() == null) {
+                $bien->setNombreUniteLot(1);
+            }
+            if ($form->get('dureeAmortissement')->getData() == null) {
+                $bien->setDureeAmortissement(5);
+            }
             $bien->setValeurAmortissement();
             $bien->setEtatAmortissement();
+
+
             #new code for image upload__________________________________________________
             $uploadedFile = $form['image']->getData();
             $destination = $this->getParameter('kernel.project_dir') . '/public/uploads';

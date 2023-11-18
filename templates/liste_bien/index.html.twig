@@ -4,8 +4,7 @@
 
 {% block content %}
 
-<h1><center> Tableau des amortissements </center> </h1>
-
+<h1><center> Les des actifs </center> </h1>
 <table class="table">
     <thead>
       <tr>
@@ -25,7 +24,7 @@
       </tr>
     </thead>
     <tbody>
-    {% for bien in biens %}    
+    {% for bien in biens %}
       <tr>
         <th scope="row">{{bien.id}}</th>
         <td> <a href=" {{path('app_show_bien', {'slug': bien.slug})}}">{{bien.referenceBien}} </a></td>
@@ -44,7 +43,11 @@
       </tr>
       {% endfor  %}
     </tbody>
+
+
+  </div>
   </table>
+
 
 
 
