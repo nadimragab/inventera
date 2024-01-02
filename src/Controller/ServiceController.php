@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Service;
 use App\Form\ServiceType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,8 +39,10 @@ class ServiceController extends AbstractController
             $this->entityManager->persist($service);
             $this->entityManager->flush();
             $notification = 'Service ajouté correctement';
-        
-
+            unset($service);
+            unset($form);
+            $structure = new Service();
+            $form = $this->createForm(ServiceType::class);
         }
         return $this->render('service/index.html.twig', [
             'form' => $form->createView(),

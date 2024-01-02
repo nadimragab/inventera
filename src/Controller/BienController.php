@@ -33,6 +33,7 @@ class BienController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $bien = $form->getData();
             #dd($bien);
             $nomBien = $form->get('nom')->getData();
@@ -100,7 +101,12 @@ class BienController extends AbstractController
             $notification = 'Bien ajouté correctement';
             #-----------------------------------------------------------------------#
             $this->entityManager->flush();
+            unset($bien);
+            unset($form);
+            $bien = new Bien();
+            $form = $this->createForm(BienType::class);
         }
+
         return $this->render('bien/index.html.twig', [
             'form' => $form->createView(),
             'notification' => $notification

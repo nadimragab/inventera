@@ -38,8 +38,10 @@ class StructureController extends AbstractController
             $this->entityManager->persist($structure);
             $this->entityManager->flush();
             $notification = 'Structure ajoutée correctement';
-        
-
+            unset($structure);
+            unset($form);
+            $structure = new Structure();
+            $form = $this->createForm(StructureType::class);
         }
         return $this->render('structure/index.html.twig', [
             'form' => $form->createView(),

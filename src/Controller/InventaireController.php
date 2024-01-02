@@ -58,10 +58,12 @@ class InventaireController extends AbstractController
             $selection = $form->getData();
             $structure = $form->get('Structure')->getData();
             $service = $form->get('Service')->getData();
-            return $this->redirect($this->generateUrl('app_inventaire_restful', array(
-                'structure' => $structure,
-                'service' => $service,
-            )
+            return $this->redirect($this->generateUrl(
+                'app_inventaire_restful',
+                array(
+                    'structure' => $structure,
+                    'service' => $service,
+                )
             ));
         }
         return $this->render('inventaire/selection.html.twig', [
@@ -70,19 +72,19 @@ class InventaireController extends AbstractController
     }
 
 
-        /* _________________________________operation inventaire par service______________________________________*/
+    /* _________________________________operation inventaire par service______________________________________*/
     /**
      * @Route("/inventaire/type/restful", name="app_inventaire_restful")
      * 
-    */
-    public function restful(Request $request): Response 
+     */
+    public function restful(Request $request): Response
     {
         $form = $this->createForm(InventaireRestType::class);
         $form->handleRequest($request);
-        $structure= $_GET['structure'];
-        $serviceURL= $_GET['service'];
-        $service=$this->entityManager->getRepository(Service::class)->findOneBy(['nomService' => $serviceURL]);
-        $array=$service->getUniteBiens();
+        $structure = $_GET['structure'];
+        $serviceURL = $_GET['service'];
+        $service = $this->entityManager->getRepository(Service::class)->findOneBy(['nomService' => $serviceURL]);
+        $array = $service->getUniteBiens();
 
         $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
         $normalizer = new ObjectNormalizer($classMetadataFactory);
@@ -97,19 +99,18 @@ class InventaireController extends AbstractController
         $response = new Response(json_encode($data));
         $response->headers->set('Content-Type', 'application/json');
         #return $response;
-        $ipAd=$_SERVER['HTTP_HOST']; 
-        return $this->render('inventaire/type/restful.html.twig',
-        ['array'=>$array,
-        'structure' => $structure,
-        'service' => $service,
-        'json'=>$response,
-        'ip'=>$ipAd,
-        'form' => $form->createView(),
-        'length'=>count($array)]
+        $ipAd = $_SERVER['HTTP_HOST'];
+        return $this->render(
+            'inventaire/type/restful.html.twig',
+            [
+                'array' => $array,
+                'structure' => $structure,
+                'service' => $service,
+                'json' => $response,
+                'ip' => $ipAd,
+                'form' => $form->createView(),
+                'length' => count($array)
+            ]
         );
     }
-     
-
-
-
 }
